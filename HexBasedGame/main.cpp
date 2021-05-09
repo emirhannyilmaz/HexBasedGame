@@ -24,7 +24,7 @@ int main() {
 		return -1;
 	}
 
-	Camera camera(45.0f, 1280.0f, 720.0f, 0.1f, 500.0f, glm::vec3(0.0f, 0.0f, 0.0f), 30.0f, 0.0f, 0.0f, 50.0f, 30.0f, 100.0f, 0.0f);
+	Camera camera(45.0f, 1280.0f, 720.0f, 0.1f, 500.0f, glm::vec3(0.0f, 0.0f, 0.0f), 30.0f, 0.0f, 0.0f, 80.0f, 50.0f, 110.0f, 0.0f);
 	Light light(glm::vec3(5000.0f, 5000.0f, 5000.0f), glm::vec3(1.0f, 1.0f, 1.0f));
 	MasterRenderer masterRenderer(&camera, &light, glm::vec3(72.0f / 255.0f, 219.0f / 255.0f, 251.0f / 255.0f), 0.0030f, 2.0f);
 	GuiRenderer guiRenderer;
