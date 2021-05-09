@@ -12,6 +12,7 @@ public:
     void LoadLight(glm::vec3 position, glm::vec3 color);
     void LoadShineVariables(float shineDamper, float reflectivity);
     void LoadIsHighlighted(bool value);
+    void LoadIsSelected(bool value);
     void LoadSkyColor(glm::vec3 color);
     void LoadFogDensity(float density);
     void LoadFogGradient(float gradient);
@@ -25,6 +26,7 @@ private:
     GLint shineDamperLoc;
     GLint reflectivityLoc;
     GLint isHighlightedLoc;
+    GLint isSelectedLoc;
     GLint skyColorLoc;
     GLint fogDensityLoc;
     GLint fogGradientLoc;

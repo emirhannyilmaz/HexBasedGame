@@ -25,6 +25,7 @@ void Renderer::BindModel(Model* model) {
 void Renderer::PrepareEntity(Entity* entity) {
     staticShader->LoadModelMatrix(entity->GetModelMatrix());
     staticShader->LoadIsHighlighted(entity->GetIsHighlighted());
+    staticShader->LoadIsSelected(entity->GetIsSelected());
 }
 
 void Renderer::UnbindModel() {

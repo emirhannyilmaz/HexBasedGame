@@ -9,7 +9,7 @@ public:
     WaterShader(const char* vertexShaderPath, const char* fragmentShaderPath);
     void LoadModelMatrix(glm::mat4 matrix);
     void LoadViewMatrix(glm::mat4 matrix, glm::vec3 cameraPosition);
-    void LoadProjectionMatrix(glm::mat4 matrix);
+    void LoadProjectionMatrix(glm::mat4 matrix, float near, float far);
     void ConnectTextureUnits();
     void LoadMoveFactor(float factor);
     void LoadLight(Light* light);
@@ -25,4 +25,7 @@ private:
     GLint normalMapLoc;
     GLint lightPositionLoc;
     GLint lightColorLoc;
+    GLint depthMapLoc;
+    GLint nearLoc;
+    GLint farLoc;
 };

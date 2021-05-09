@@ -1,6 +1,6 @@
 #include "Camera.h"
 
-Camera::Camera(float fov, float width, float height, float near, float far, glm::vec3 _position, float _pitch, float _yaw, float _roll, float _distance, float _minDistance, float _maxDistance, float _angleAround) {
+Camera::Camera(float fov, float width, float height, float _near, float _far, glm::vec3 _position, float _pitch, float _yaw, float _roll, float _distance, float _minDistance, float _maxDistance, float _angleAround) {
     position = _position;
     pitch = _pitch;
     yaw = _yaw;
@@ -9,7 +9,9 @@ Camera::Camera(float fov, float width, float height, float near, float far, glm:
     minDistance = _minDistance;
     maxDistance = _maxDistance;
     angleAround = _angleAround;
-    projection = glm::perspective(glm::radians(fov), width / height, near, far);
+    projection = glm::perspective(glm::radians(fov), width / height, _near, _far);
+    near = _near;
+    far = _far;
 }
 
 glm::mat4 Camera::GetViewMatrix() {
@@ -24,14 +26,22 @@ glm::mat4 Camera::GetProjectionMatrix() {
     return projection;
 }
 
+float Camera::GetNear() {
+    return near;
+}
+
+float Camera::GetFar() {
+    return far;
+}
+
 void Camera::HandleInput() {
     static glm::vec3 tempPos = glm::vec3(0.0f, 0.0f, 0.0f);
 
-    if (Mouse::GetMouseButtonDown(GLFW_MOUSE_BUTTON_LEFT)) {
+    if (Mouse::GetMouseButton(GLFW_MOUSE_BUTTON_LEFT)) {
         tempPos -= direction * Mouse::GetDy() * Window::GetDeltaTime();
         tempPos -= right * -Mouse::GetDx() * Window::GetDeltaTime();
     }
-    else if (Mouse::GetMouseButtonDown(GLFW_MOUSE_BUTTON_RIGHT)) {
+    else if (Mouse::GetMouseButton(GLFW_MOUSE_BUTTON_RIGHT)) {
         angleAround += Mouse::GetDx() * Window::GetDeltaTime();
     }
     else {

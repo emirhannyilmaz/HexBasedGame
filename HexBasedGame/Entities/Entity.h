@@ -16,7 +16,9 @@ public:
     glm::vec3 GetPosition();
     void SetPosition(glm::vec3 _position);
     bool GetIsHighlighted();
+    bool GetIsSelected();
     void SetIsHighlighted(bool value);
+    void SetIsSelected(bool value);
 private:
     Model* model = NULL;
     std::vector<Collider> colliders;
@@ -27,4 +29,5 @@ private:
     glm::mat4 modelMatrix;
     glm::mat4 identityMatrix = glm::mat4(1.0f);
     bool isHighlighted = false;
+    bool isSelected = false;
 };

@@ -13,6 +13,7 @@ uniform vec3 lightColor;
 uniform float shineDamper;
 uniform float reflectivity;
 uniform float isHighlighted;
+uniform float isSelected;
 uniform vec3 skyColor;
 
 void main() {
@@ -31,7 +32,10 @@ void main() {
     float dampedFactor = pow(specularFactor, shineDamper);
     vec3 finalSpecular = dampedFactor * reflectivity * lightColor;
     
-    if (isHighlighted == 1.0f) {
+    if (isHighlighted == 1.0) {
+        FragColor = texture(tex, passTexCoords);
+        FragColor = mix(FragColor, vec4(1.0, 1.0, 1.0, 1.0), 0.6);
+    } else if (isSelected == 1.0) {
         FragColor = texture(tex, passTexCoords);
     } else {
         FragColor = vec4(diffuse, 1.0) * texture(tex, passTexCoords) + vec4(finalSpecular, 1.0);

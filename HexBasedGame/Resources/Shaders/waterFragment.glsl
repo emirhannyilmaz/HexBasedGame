@@ -11,8 +11,11 @@ uniform sampler2D reflectionTexture;
 uniform sampler2D refractionTexture;
 uniform sampler2D dudvMap;
 uniform sampler2D normalMap;
+uniform sampler2D depthMap;
 uniform float moveFactor;
 uniform vec3 lightColor;
+uniform float near;
+uniform float far;
 
 const float waveStrength = 0.02;
 const float refractivity = 5.0;
@@ -23,10 +26,17 @@ void main() {
     vec2 ndc = (clipSpace.xy / clipSpace.w) / 2.0 + 0.5;
     vec2 reflectionTexCoords = vec2(ndc.x, -ndc.y);
     vec2 refractionTexCoords = vec2(ndc.x, ndc.y);
+
+    float depth = texture(depthMap, refractionTexCoords).r;
+    float floorDistance = 2.0 * near * far / (far + near - (2.0 * depth - 1.0) * (far - near));
+
+    depth = gl_FragCoord.z;
+    float waterDistance = 2.0 * near * far / (far + near - (2.0 * depth - 1.0) * (far - near));
+    float waterDepth = floorDistance - waterDistance;
     
     vec2 distortedTexCoords = texture(dudvMap, vec2(texCoords.x + moveFactor, texCoords.y)).rg * 0.1;
     distortedTexCoords = texCoords + vec2(distortedTexCoords.x, distortedTexCoords.y + moveFactor);
-    vec2 totalDistortion = (texture(dudvMap, distortedTexCoords).rg * 2.0 - 1.0) * waveStrength;
+    vec2 totalDistortion = (texture(dudvMap, distortedTexCoords).rg * 2.0 - 1.0) * waveStrength * clamp(waterDepth / 20.0, 0.0, 1.0);
     
     reflectionTexCoords += totalDistortion;
     reflectionTexCoords.x = clamp(reflectionTexCoords.x, 0.001, 0.999);
@@ -49,8 +59,9 @@ void main() {
     vec3 reflectedLight = reflect(normalize(fromLightVector), normal);
     float specular = max(dot(reflectedLight, normToCameraVector), 0.0);
     specular = pow(specular, shineDamper);
-    vec3 specularHighlights = lightColor * specular * reflectivity;
+    vec3 specularHighlights = lightColor * specular * reflectivity * clamp(waterDepth / 5.0, 0.0, 1.0);
 
     FragColor = mix(reflectionColor, refractionColor, refractiveFactor);
     FragColor = mix(FragColor, vec4(0.0, 0.3, 0.5, 1.0), 0.2) + vec4(specularHighlights, 0.0);
+    FragColor.a = clamp(waterDepth / 5.0, 0.0, 1.0);
 }

@@ -16,66 +16,78 @@ float Mouse::mouseWheel = 0.0f;
 GLFWwindow* Mouse::window = NULL;
 
 void Mouse::Setup(GLFWwindow* window) {
-    Mouse::window = window;
+	Mouse::window = window;
 }
 
 void Mouse::MousePositionCallback(GLFWwindow* window, double xPos, double yPos) {
-    if (firstMouse) {
-        Mouse::lastX = xPos;
-        Mouse::lastY = yPos;
-        Mouse::firstMouse = false;
-    }
+	if (firstMouse) {
+		Mouse::lastX = xPos;
+		Mouse::lastY = yPos;
+		Mouse::firstMouse = false;
+	}
 
-    Mouse::dx = xPos - Mouse::lastX;
-    Mouse::dy = Mouse::lastY - yPos;
-    Mouse::lastX = xPos;
-    Mouse::lastY = yPos;
-    Mouse::x = xPos;
-    Mouse::y = yPos;
+	Mouse::dx = xPos - Mouse::lastX;
+	Mouse::dy = Mouse::lastY - yPos;
+	Mouse::lastX = xPos;
+	Mouse::lastY = yPos;
+	Mouse::x = xPos;
+	Mouse::y = yPos;
 }
 
 void Mouse::MouseScrollCallback(GLFWwindow* window, double xOffset, double yOffset) {
-    Mouse::mouseWheel = yOffset;
+	Mouse::mouseWheel = yOffset;
 }
 
 float Mouse::GetX() {
-    return x;
+	return x;
 }
 
 float Mouse::GetY() {
-    return y;
+	return y;
 }
 
 float Mouse::GetDx() {
-    if (Mouse::previousDx == Mouse::dx) {
-        return 0.0f;
-    }
+	if (Mouse::previousDx == Mouse::dx) {
+		return 0.0f;
+	}
 
-    Mouse::previousDx = Mouse::dx;
+	Mouse::previousDx = Mouse::dx;
 
-    return Mouse::dx * mouseSensitivity;
+	return Mouse::dx * mouseSensitivity;
 }
 
 float Mouse::GetDy() {
-    if (Mouse::previousDy == Mouse::dy) {
-        return 0.0f;
-    }
+	if (Mouse::previousDy == Mouse::dy) {
+		return 0.0f;
+	}
 
-    Mouse::previousDy = Mouse::dy;
+	Mouse::previousDy = Mouse::dy;
 
-    return Mouse::dy * mouseSensitivity;
+	return Mouse::dy * mouseSensitivity;
 }
 
 float Mouse::GetMouseWheel() {
-    if (Mouse::previousMouseWheel == Mouse::mouseWheel) {
-        return 0.0f;
-    }
+	if (Mouse::previousMouseWheel == Mouse::mouseWheel) {
+		return 0.0f;
+	}
 
-    Mouse::previousMouseWheel = Mouse::mouseWheel;
+	Mouse::previousMouseWheel = Mouse::mouseWheel;
 
-    return Mouse::mouseWheel * mouseWheelSensitivity;
+	return Mouse::mouseWheel * mouseWheelSensitivity;
+}
+
+bool Mouse::GetMouseButton(int button) {
+	return glfwGetMouseButton(Mouse::window, button) == GLFW_PRESS;
 }
 
 bool Mouse::GetMouseButtonDown(int button) {
-    return glfwGetMouseButton(Mouse::window, button) == GLFW_PRESS;
+	static int oldState = GLFW_RELEASE;
+	int newState = glfwGetMouseButton(Mouse::window, button);
+	if (newState == GLFW_RELEASE && oldState == GLFW_PRESS) {
+		oldState = newState;
+		return true;
+	} else {
+		oldState = newState;
+		return false;
+	}
 }

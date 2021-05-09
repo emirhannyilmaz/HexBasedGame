@@ -1,11 +1,11 @@
 #include "GuiTexture.h"
 
-GuiTexture::GuiTexture(const char* texturePath, GLint format, GLenum sourceFormat, GLenum type, glm::vec2 _position, float _rotationInDegrees, glm::vec3 _rotationAxis, glm::vec2 _scale) {
+GuiTexture::GuiTexture(const char* texturePath, GLint format, GLenum sourceFormat, GLenum type, glm::vec2 _position, float _rotationInDegrees, glm::vec3 _rotationAxis, float scaleXInPixels, float scaleYInPixels) {
 	texture = new Texture(texturePath, format, sourceFormat, type, false, false);
 	position = _position;
 	rotationInDegrees = _rotationInDegrees;
 	rotationAxis = _rotationAxis;
-	scale = _scale;
+	scale = glm::vec2(scaleXInPixels / Window::GetWidth(), scaleYInPixels / Window::GetHeight());
 }
 
 Texture* GuiTexture::GetTexture() {

@@ -9,6 +9,7 @@ StaticShader::StaticShader(const char* vertexShaderPath, const char* fragmentSha
     shineDamperLoc = GetUniformLocation("shineDamper");
     reflectivityLoc = GetUniformLocation("reflectivity");
     isHighlightedLoc = GetUniformLocation("isHighlighted");
+    isSelectedLoc = GetUniformLocation("isSelected");
     skyColorLoc = GetUniformLocation("skyColor");
     fogDensityLoc = GetUniformLocation("fogDensity");
     fogGradientLoc = GetUniformLocation("fogGradient");
@@ -39,6 +40,10 @@ void StaticShader::LoadShineVariables(float shineDamper, float reflectivity) {
 
 void StaticShader::LoadIsHighlighted(bool value) {
     LoadBoolean(isHighlightedLoc, value);
+}
+
+void StaticShader::LoadIsSelected(bool value) {
+    LoadBoolean(isSelectedLoc, value);
 }
 
 void StaticShader::LoadSkyColor(glm::vec3 color) {

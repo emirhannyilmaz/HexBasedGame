@@ -12,6 +12,9 @@ WaterShader::WaterShader(const char* vertexShaderPath, const char* fragmentShade
     normalMapLoc = GetUniformLocation("normalMap");
     lightPositionLoc = GetUniformLocation("lightPosition");
     lightColorLoc = GetUniformLocation("lightColor");
+    depthMapLoc = GetUniformLocation("depthMap");
+    nearLoc = GetUniformLocation("near");
+    farLoc = GetUniformLocation("far");
 }
 
 void WaterShader::LoadModelMatrix(glm::mat4 matrix) {
@@ -23,8 +26,10 @@ void WaterShader::LoadViewMatrix(glm::mat4 matrix, glm::vec3 cameraPosition) {
     LoadVector3f(cameraPositionLoc, cameraPosition);
 }
 
-void WaterShader::LoadProjectionMatrix(glm::mat4 matrix) {
+void WaterShader::LoadProjectionMatrix(glm::mat4 matrix, float near, float far) {
     LoadMatrix4f(projectionLoc, matrix);
+    LoadFloat(nearLoc, near);
+    LoadFloat(farLoc, far);
 }
 
 void WaterShader::ConnectTextureUnits() {
@@ -32,6 +37,7 @@ void WaterShader::ConnectTextureUnits() {
     LoadInt(refractionTextureLoc, 1);
     LoadInt(dudvMapLoc, 2);
     LoadInt(normalMapLoc, 3);
+    LoadInt(depthMapLoc, 4);
 }
 
 void WaterShader::LoadMoveFactor(float factor) {

@@ -3,10 +3,11 @@
 #include "../Objects/Texture.h"
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
+#include "../IO/Window.h"
 
 class GuiTexture {
 public:
-	GuiTexture(const char* texturePath, GLint format, GLenum sourceFormat, GLenum type, glm::vec2 _position, float _rotationInDegrees, glm::vec3 rotationAxis, glm::vec2 _scale);
+	GuiTexture(const char* texturePath, GLint format, GLenum sourceFormat, GLenum type, glm::vec2 _position, float _rotationInDegrees, glm::vec3 rotationAxis, float scaleXInPixels, float scaleYInPixels);
 	Texture* GetTexture();
 	glm::mat4 GetModelMatrix();
 	~GuiTexture();

@@ -28,5 +28,6 @@ public:
     static float GetDx();
     static float GetDy();
     static float GetMouseWheel();
+    static bool GetMouseButton(int button);
     static bool GetMouseButtonDown(int button);
 };
