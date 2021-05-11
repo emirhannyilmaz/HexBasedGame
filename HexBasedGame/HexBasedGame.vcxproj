@@ -147,6 +147,7 @@
   <ItemGroup>
     <ClCompile Include="Entities\Camera.cpp" />
     <ClCompile Include="Entities\Entity.cpp" />
+    <ClCompile Include="Entities\GuiButton.cpp" />
     <ClCompile Include="Entities\GuiTexture.cpp" />
     <ClCompile Include="Entities\Light.cpp" />
     <ClCompile Include="Entities\WaterTile.cpp" />
@@ -179,6 +180,7 @@
   <ItemGroup>
     <ClInclude Include="Entities\Camera.h" />
     <ClInclude Include="Entities\Entity.h" />
+    <ClInclude Include="Entities\GuiButton.h" />
     <ClInclude Include="Entities\GuiTexture.h" />
     <ClInclude Include="Entities\Light.h" />
     <ClInclude Include="Entities\WaterTile.h" />

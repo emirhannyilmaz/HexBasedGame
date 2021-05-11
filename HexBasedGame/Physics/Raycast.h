@@ -8,6 +8,7 @@
 #include <vector>
 #include "../Entities/Entity.h"
 #include "Collision.h"
+#include "../Entities/GuiTexture.h"
 
 class Raycast {
 private:
@@ -24,7 +25,7 @@ public:
     glm::vec3 GetCurrentRay();
     glm::vec3 GetCurrentPoint();
     void Update();
-    void CheckForCollisions(std::vector<Entity*> entities);
+    void CheckForCollisions(std::vector<Entity*> entities, GuiTexture* hexInfoTexture);
     glm::vec3 CalculateRay();
     glm::vec2 GetNormalizedDeviceCoords(float mouseX, float mouseY);
     glm::vec4 ToEyeCoords(glm::vec4 clipCoords);

@@ -28,7 +28,7 @@ void Raycast::Update() {
 	}
 }
 
-void Raycast::CheckForCollisions(std::vector<Entity*> entities) {
+void Raycast::CheckForCollisions(std::vector<Entity*> entities, GuiTexture* hexInfoTexture) {
 	bool nothingsColliding = true;
 	for (int i = 0; i < entities.size(); i++) {
 		for (int j = 0; j < entities.at(i)->GetColliders().size(); j++) {
@@ -42,14 +42,17 @@ void Raycast::CheckForCollisions(std::vector<Entity*> entities) {
 						for (int i = 0; i < entities.size(); i++) {
 							if (entities.at(i)->GetIsSelected()) {
 								entities.at(i)->SetIsSelected(false);
+								hexInfoTexture->SetIsActive(false);
 								entityWasSelected = true;
 							}
 						}
 						if (!entityWasSelected) {
 							entities.at(i)->SetIsSelected(true);
+							hexInfoTexture->SetIsActive(true);
 						}
 					} else {
 						entities.at(i)->SetIsSelected(false);
+						hexInfoTexture->SetIsActive(false);
 					}
 				}
 				break;
@@ -62,6 +65,7 @@ void Raycast::CheckForCollisions(std::vector<Entity*> entities) {
 		if (Mouse::GetMouseButtonDown(0)) {
 			for (int i = 0; i < entities.size(); i++) {
 				entities.at(i)->SetIsSelected(false);
+				hexInfoTexture->SetIsActive(false);
 			}
 		}
 	}

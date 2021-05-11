@@ -16,7 +16,12 @@
 #include "Renderer/WaterRenderer.h"
 #include "Renderer/WaterFrameBuffers.h"
 #include "Entities/GuiTexture.h"
+#include "Entities/GuiButton.h"
 #include "Renderer/GuiRenderer.h"
+
+void ClickCallback() {
+	std::cout << "Callback Function!" << std::endl;
+}
 
 int main() {
 	Window window;
@@ -72,17 +77,24 @@ int main() {
 	std::vector<WaterTile*> waterTiles;
 	waterTiles.push_back(&waterTile);
 
-	GuiTexture guiTexture("Resources/Textures/hexInfo.png", GL_RGBA, GL_RGBA, GL_UNSIGNED_BYTE, glm::vec2(0.0f, 1.0f - 0.1f), 0.0f, glm::vec3(0.0f, 0.0f, 0.0f), 250.0f, 60.0f);
+	GuiTexture hexInfoTexture("Resources/Textures/hexInfo.png", GL_RGB, GL_RGB, GL_UNSIGNED_BYTE, glm::vec2(0.0f, 1.0f - 0.1f), 0.0f, glm::vec3(0.0f, 0.0f, 0.0f), 250.0f, 60.0f, false);
+	GuiButton buildTownButton("Resources/Textures/buildTown.png", GL_RGB, GL_RGB, GL_UNSIGNED_BYTE, glm::vec2(-1.0f + 0.1f, 0.0f), 0.0f, glm::vec3(0.0f, 0.0f, 0.0f), 100.0f, 100.0f, true, ClickCallback);
 
 	std::vector<GuiTexture*> guiTextures;
-	guiTextures.push_back(&guiTexture);
+	guiTextures.push_back(&hexInfoTexture);
+
+	std::vector<GuiButton*> guiButtons;
+	guiButtons.push_back(&buildTownButton);
 
 	while (!window.ShouldClose()) {
 		window.CalculateDeltaTime();
 
 		camera.HandleInput();
+		for (GuiButton* guiButton : guiButtons) {
+			guiButton->HandleMouse();
+		}
 		ray.Update();
-		ray.CheckForCollisions(entities);
+		ray.CheckForCollisions(entities, &hexInfoTexture);
 
 		glEnable(GL_CLIP_DISTANCE0);
 		buffers.BindReflectionFrameBuffer();
@@ -103,7 +115,7 @@ int main() {
 		masterRenderer.Clear();
 		masterRenderer.RenderScene(entities, glm::vec4(0.0f, 1.0f, 0.0f, 1000000.0f));
 		waterRenderer.Render(waterTiles, &light);
-		guiRenderer.Render(guiTextures);
+		guiRenderer.Render(guiTextures, guiButtons);
 
 		window.DoStuff();
 	}

@@ -9,7 +9,7 @@ Entity::Entity(Model* _model, std::vector<Collider> _colliders, glm::vec3 _posit
 	scale = _scale;
 	for (int i = 0; i < colliders.size(); i++) {
 		for (int j = 0; j < colliders.at(i).GetVertices().size(); j++) {
-			glm::vec4 vertexPosition = glm::vec4(colliders.at(i).GetVertices().at(j).x, colliders.at(i).GetVertices().at(j).y, colliders.at(i).GetVertices().at(j).z, 1.0);
+			glm::vec4 vertexPosition = glm::vec4(colliders.at(i).GetVertices().at(j).x, colliders.at(i).GetVertices().at(j).y, colliders.at(i).GetVertices().at(j).z, 1.0f);
 			glm::vec4 result = GetModelMatrix() * vertexPosition;
 			glm::vec3 resultInVec3 = glm::vec3(result.x, result.y, result.z);
 			colliders.at(i).TransformVertex(j, resultInVec3);

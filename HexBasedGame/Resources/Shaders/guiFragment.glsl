@@ -5,7 +5,12 @@ out vec4 FragColor;
 in vec2 texCoords;
 
 uniform sampler2D tex;
+uniform float isHighlighted;
 
 void main() {
-	FragColor = texture(tex, texCoords);
+	if (isHighlighted == 1.0) {
+		FragColor = mix(texture(tex, texCoords), vec4(1.0, 1.0, 1.0, 1.0), 0.5);
+	} else {
+		FragColor = texture(tex, texCoords);
+	}
 }
