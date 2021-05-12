@@ -9,7 +9,7 @@
 
 class GuiButton {
 public:
-	GuiButton(const char* texturePath, GLint format, GLenum sourceFormat, GLenum type, glm::vec2 _position, float _rotationInDegrees, glm::vec3 _rotationAxis, float scaleXInPixels, float scaleYInPixels, bool _isActive, void(*clickCallback)());
+	GuiButton(const char* texturePath, GLint format, GLenum sourceFormat, GLenum type, glm::vec2 _positionInPixels, float _rotationInDegrees, glm::vec3 _rotationAxis, glm::vec2 _scaleInPixels, bool _isActive, void(*_ClickCallback)());
 	Texture* GetTexture();
 	glm::mat4 GetModelMatrix();
 	bool GetIsActive();
@@ -20,9 +20,11 @@ public:
 private:
 	Texture* texture = NULL;
 	glm::vec2 position;
+	glm::vec2 positionInPixels;
 	float rotationInDegrees;
 	glm::vec3 rotationAxis;
 	glm::vec2 scale;
+	glm::vec2 scaleInPixels;
 	glm::mat4 modelMatrix;
 	glm::mat4 identityMatrix = glm::mat4(1.0f);
 	bool isActive;

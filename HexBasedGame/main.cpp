@@ -77,8 +77,8 @@ int main() {
 	std::vector<WaterTile*> waterTiles;
 	waterTiles.push_back(&waterTile);
 
-	GuiTexture hexInfoTexture("Resources/Textures/hexInfo.png", GL_RGB, GL_RGB, GL_UNSIGNED_BYTE, glm::vec2(0.0f, 1.0f - 0.1f), 0.0f, glm::vec3(0.0f, 0.0f, 0.0f), 250.0f, 60.0f, false);
-	GuiButton buildTownButton("Resources/Textures/buildTown.png", GL_RGB, GL_RGB, GL_UNSIGNED_BYTE, glm::vec2(-1.0f + 0.1f, 0.0f), 0.0f, glm::vec3(0.0f, 0.0f, 0.0f), 100.0f, 100.0f, true, ClickCallback);
+	GuiTexture hexInfoTexture("Resources/Textures/hexInfo.png", GL_RGB, GL_RGB, GL_UNSIGNED_BYTE, glm::vec2(Window::GetWidth() / 2.0f, Window::GetHeight() - 60.0f), 0.0f, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec2(250.0f, 60.0f), false);
+	GuiButton buildTownButton("Resources/Textures/buildTown.png", GL_RGB, GL_RGB, GL_UNSIGNED_BYTE, glm::vec2(100.0f, Window::GetHeight() / 2.0f), 0.0f, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec2(100.0f, 100.0f), true, ClickCallback);
 
 	std::vector<GuiTexture*> guiTextures;
 	guiTextures.push_back(&hexInfoTexture);

@@ -7,7 +7,7 @@
 
 class GuiTexture {
 public:
-	GuiTexture(const char* texturePath, GLint format, GLenum sourceFormat, GLenum type, glm::vec2 _position, float _rotationInDegrees, glm::vec3 rotationAxis, float scaleXInPixels, float scaleYInPixels, bool _isActive);
+	GuiTexture(const char* texturePath, GLint format, GLenum sourceFormat, GLenum type, glm::vec2 positionInPixels, float _rotationInDegrees, glm::vec3 _rotationAxis, glm::vec2 scaleInPixels, bool _isActive);
 	Texture* GetTexture();
 	glm::mat4 GetModelMatrix();
 	bool GetIsActive();
