@@ -6,9 +6,7 @@
 class VBO {
 public:
     VBO();
-    void Bind();
-    void StoreData(GLsizeiptr size, const void* data);
-    void Unbind();
+    GLuint GetId();
     ~VBO();
 private:
     GLuint id;

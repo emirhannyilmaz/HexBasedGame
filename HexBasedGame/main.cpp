@@ -1,26 +1,34 @@
 #include <iostream>
 #include <GL/glew.h>
 #include "IO/Window.h"
-#include "Renderer/MasterRenderer.h"
+#include "Renderer/EntityRenderer/MasterRenderer.h"
 #include <vector>
 #include "Renderer/Mesh.h"
 #include "Renderer/Material.h"
 #include "Models/Model.h"
 #include "Entities/Camera.h"
-#include "Renderer/ObjLoader.h"
+#include "Renderer/EntityRenderer/ObjLoader.h"
 #include "Entities/Light.h"
 #include "Physics/Collider.h"
 #include "Physics/Collision.h"
 #include "Physics/Raycast.h"
 #include <glm/glm.hpp>
-#include "Renderer/WaterRenderer.h"
-#include "Renderer/WaterFrameBuffers.h"
+#include "Renderer/WaterRenderer/WaterRenderer.h"
+#include "Renderer/WaterRenderer/WaterFrameBuffers.h"
 #include "Entities/GuiTexture.h"
 #include "Entities/GuiButton.h"
-#include "Renderer/GuiRenderer.h"
+#include "Renderer/GuiRenderer/GuiRenderer.h"
+#include "BuildController.h"
+#include "Entities/Text.h"
+#include "Renderer/TextRenderer/TextRenderer.h"
+#include "Renderer/TextRenderer/FontLoader.h"
+#include "Renderer/TextRenderer/Character.h"
+#include <map>
 
-void ClickCallback() {
-	std::cout << "Callback Function!" << std::endl;
+BuildController* buildController = NULL;
+
+void BuildTownButtonClick() {
+	buildController->BuildTown();
 }
 
 int main() {
@@ -29,6 +37,9 @@ int main() {
 		return -1;
 	}
 
+	std::map<char, Character*> characters;
+	FontLoader::LoadFont("Resources/Fonts/arial.ttf", 48, characters);
+
 	Camera camera(45.0f, 1280.0f, 720.0f, 0.1f, 500.0f, glm::vec3(0.0f, 0.0f, 0.0f), 30.0f, 0.0f, 0.0f, 80.0f, 50.0f, 110.0f, 0.0f);
 	Light light(glm::vec3(5000.0f, 5000.0f, 5000.0f), glm::vec3(1.0f, 1.0f, 1.0f));
 	MasterRenderer masterRenderer(&camera, &light, glm::vec3(72.0f / 255.0f, 219.0f / 255.0f, 251.0f / 255.0f), 0.0030f, 2.0f);
@@ -36,6 +47,7 @@ int main() {
 	WaterFrameBuffers buffers;
 	WaterRenderer waterRenderer(&camera, &buffers);
 	Raycast ray(&camera, 500.0f, 200, 0.50f);
+	TextRenderer textRenderer(characters);
 
 	std::vector<glm::vec3> vertices;
 	std::vector<glm::vec2> texCoords;
@@ -58,7 +70,6 @@ int main() {
 	Entity entity9(&model, colliders, glm::vec3(21.5f, 0.0f, -8.6f), 0.0f, glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(5.0f, 5.0f, 5.0f));
 	Entity entity10(&model, colliders, glm::vec3(-12.9f, 0.0f, -8.6f), 0.0f, glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(5.0f, 5.0f, 5.0f));
 	Entity entity11(&model, colliders, glm::vec3(-21.5f, 0.0f, -8.6f), 0.0f, glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(5.0f, 5.0f, 5.0f));
-
 	std::vector<Entity*> entities;
 	entities.push_back(&entity);
 	entities.push_back(&entity2);
@@ -73,18 +84,22 @@ int main() {
 	entities.push_back(&entity11);
 
 	WaterTile waterTile(0.0f, 0.0f, 0.0f);
-
 	std::vector<WaterTile*> waterTiles;
 	waterTiles.push_back(&waterTile);
 
-	GuiTexture hexInfoTexture("Resources/Textures/hexInfo.png", GL_RGB, GL_RGB, GL_UNSIGNED_BYTE, glm::vec2(Window::GetWidth() / 2.0f, Window::GetHeight() - 60.0f), 0.0f, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec2(250.0f, 60.0f), false);
-	GuiButton buildTownButton("Resources/Textures/buildTown.png", GL_RGB, GL_RGB, GL_UNSIGNED_BYTE, glm::vec2(100.0f, Window::GetHeight() / 2.0f), 0.0f, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec2(100.0f, 100.0f), true, ClickCallback);
-
+	GuiTexture hexNameTexture("Resources/Textures/hexInfo.png", GL_RGB, GL_RGB, GL_UNSIGNED_BYTE, glm::vec2(Window::GetWidth() / 2.0f, Window::GetHeight() - 80.0f), 0.0f, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec2(400.0f, 80.0f), false);
 	std::vector<GuiTexture*> guiTextures;
-	guiTextures.push_back(&hexInfoTexture);
+	guiTextures.push_back(&hexNameTexture);
 
+	GuiButton buildTownButton("Resources/Textures/buildTown.png", GL_RGB, GL_RGB, GL_UNSIGNED_BYTE, glm::vec2(100.0f, Window::GetHeight() / 2.0f), 0.0f, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec2(100.0f, 100.0f), false, BuildTownButtonClick);
 	std::vector<GuiButton*> guiButtons;
 	guiButtons.push_back(&buildTownButton);
+
+	Text hexNameText("", glm::vec2(Window::GetWidth() / 2.0f, Window::GetHeight() - 96.0f), glm::vec2(1.0f, 1.0f), glm::vec3(1.0f, 1.0f, 1.0f), false);
+	std::vector<Text*> texts;
+	texts.push_back(&hexNameText);
+
+	buildController = new BuildController(&entities, &hexNameText);
 
 	while (!window.ShouldClose()) {
 		window.CalculateDeltaTime();
@@ -94,7 +109,7 @@ int main() {
 			guiButton->HandleMouse();
 		}
 		ray.Update();
-		ray.CheckForCollisions(entities, &hexInfoTexture);
+		ray.CheckForCollisions(entities, guiButtons, &hexNameTexture, &hexNameText);
 
 		glEnable(GL_CLIP_DISTANCE0);
 		buffers.BindReflectionFrameBuffer();
@@ -116,9 +131,12 @@ int main() {
 		masterRenderer.RenderScene(entities, glm::vec4(0.0f, 1.0f, 0.0f, 1000000.0f));
 		waterRenderer.Render(waterTiles, &light);
 		guiRenderer.Render(guiTextures, guiButtons);
+		textRenderer.Render(texts);
 
 		window.DoStuff();
 	}
 
+	delete buildController;
+	
 	return 0;
 }

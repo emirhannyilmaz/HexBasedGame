@@ -12,7 +12,11 @@ public:
     Mesh(std::vector<glm::vec3> vertices, std::vector<glm::vec2> texCoords, std::vector<glm::vec3> normals, std::vector<GLuint> indices);
     Mesh(std::vector<glm::vec3> vertices);
     Mesh(std::vector<glm::vec2> vertices);
+    Mesh(GLfloat bufferSize, GLuint coordinateLength, GLenum type, GLsizei stride, const void* offset);
     VAO* GetVao();
+    VBO* GetVbo1();
+    VBO* GetVbo2();
+    VBO* GetVbo3();
     GLsizei GetIndicesCount();
     GLsizei GetVerticesCount();
     ~Mesh();

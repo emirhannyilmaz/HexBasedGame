@@ -88,13 +88,13 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions);_CRT_SECURE_NO_DEPRECATE</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\GLFW\include;$(SolutionDir)Dependencies\GLEW\include;$(SolutionDir)Dependencies\GLM\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\GLFW\include;$(SolutionDir)Dependencies\GLEW\include;$(SolutionDir)Dependencies\GLM\include;$(SolutionDir)Dependencies;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)Dependencies\GLFW\lib;$(SolutionDir)Dependencies\GLEW\lib;$(SolutionDir)Dependencies\GLM\lib</AdditionalLibraryDirectories>
-      <AdditionalDependencies>opengl32.lib;glfw3dll.lib;glew32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)Dependencies\GLFW\lib;$(SolutionDir)Dependencies\GLEW\lib;$(SolutionDir)Dependencies\GLM\lib;$(SolutionDir)Dependencies\FT\lib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>opengl32.lib;glfw3dll.lib;glew32.lib;freetype.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -105,15 +105,15 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions);_CRT_SECURE_NO_DEPRECATE</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\GLFW\include;$(SolutionDir)Dependencies\GLEW\include;$(SolutionDir)Dependencies\GLM\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\GLFW\include;$(SolutionDir)Dependencies\GLEW\include;$(SolutionDir)Dependencies\GLM\include;$(SolutionDir)Dependencies;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)Dependencies\GLFW\lib;$(SolutionDir)Dependencies\GLEW\lib;$(SolutionDir)Dependencies\GLM\lib</AdditionalLibraryDirectories>
-      <AdditionalDependencies>opengl32.lib;glfw3dll.lib;glew32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)Dependencies\GLFW\lib;$(SolutionDir)Dependencies\GLEW\lib;$(SolutionDir)Dependencies\GLM\lib;$(SolutionDir)Dependencies\FT\lib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>opengl32.lib;glfw3dll.lib;glew32.lib;freetype.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -145,11 +145,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BuildController.cpp" />
     <ClCompile Include="Entities\Camera.cpp" />
     <ClCompile Include="Entities\Entity.cpp" />
     <ClCompile Include="Entities\GuiButton.cpp" />
     <ClCompile Include="Entities\GuiTexture.cpp" />
     <ClCompile Include="Entities\Light.cpp" />
+    <ClCompile Include="Entities\Text.cpp" />
     <ClCompile Include="Entities\WaterTile.cpp" />
     <ClCompile Include="IO\Mouse.cpp" />
     <ClCompile Include="IO\Window.cpp" />
@@ -163,26 +165,32 @@
     <ClCompile Include="Physics\Collider.cpp" />
     <ClCompile Include="Physics\Collision.cpp" />
     <ClCompile Include="Physics\Raycast.cpp" />
-    <ClCompile Include="Renderer\GuiRenderer.cpp" />
-    <ClCompile Include="Renderer\MasterRenderer.cpp" />
+    <ClCompile Include="Renderer\TextRenderer\Character.cpp" />
+    <ClCompile Include="Renderer\TextRenderer\FontLoader.cpp" />
+    <ClCompile Include="Renderer\TextRenderer\TextRenderer.cpp" />
+    <ClCompile Include="Renderer\GuiRenderer\GuiRenderer.cpp" />
+    <ClCompile Include="Renderer\EntityRenderer\MasterRenderer.cpp" />
     <ClCompile Include="Renderer\Material.cpp" />
     <ClCompile Include="Renderer\Mesh.cpp" />
-    <ClCompile Include="Renderer\ObjLoader.cpp" />
-    <ClCompile Include="Renderer\Renderer.cpp" />
+    <ClCompile Include="Renderer\EntityRenderer\ObjLoader.cpp" />
+    <ClCompile Include="Renderer\EntityRenderer\Renderer.cpp" />
     <ClCompile Include="Renderer\stb_image.cpp" />
-    <ClCompile Include="Renderer\WaterFrameBuffers.cpp" />
-    <ClCompile Include="Renderer\WaterRenderer.cpp" />
+    <ClCompile Include="Renderer\WaterRenderer\WaterFrameBuffers.cpp" />
+    <ClCompile Include="Renderer\WaterRenderer\WaterRenderer.cpp" />
+    <ClCompile Include="Shaders\TextShader.cpp" />
     <ClCompile Include="Shaders\GuiShader.cpp" />
     <ClCompile Include="Shaders\ShaderProgram.cpp" />
     <ClCompile Include="Shaders\StaticShader.cpp" />
     <ClCompile Include="Shaders\WaterShader.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BuildController.h" />
     <ClInclude Include="Entities\Camera.h" />
     <ClInclude Include="Entities\Entity.h" />
     <ClInclude Include="Entities\GuiButton.h" />
     <ClInclude Include="Entities\GuiTexture.h" />
     <ClInclude Include="Entities\Light.h" />
+    <ClInclude Include="Entities\Text.h" />
     <ClInclude Include="Entities\WaterTile.h" />
     <ClInclude Include="IO\Mouse.h" />
     <ClInclude Include="IO\Window.h" />
@@ -195,15 +203,19 @@
     <ClInclude Include="Physics\Collider.h" />
     <ClInclude Include="Physics\Collision.h" />
     <ClInclude Include="Physics\Raycast.h" />
-    <ClInclude Include="Renderer\GuiRenderer.h" />
-    <ClInclude Include="Renderer\MasterRenderer.h" />
+    <ClInclude Include="Renderer\TextRenderer\Character.h" />
+    <ClInclude Include="Renderer\TextRenderer\FontLoader.h" />
+    <ClInclude Include="Renderer\TextRenderer\TextRenderer.h" />
+    <ClInclude Include="Renderer\GuiRenderer\GuiRenderer.h" />
+    <ClInclude Include="Renderer\EntityRenderer\MasterRenderer.h" />
     <ClInclude Include="Renderer\Material.h" />
     <ClInclude Include="Renderer\Mesh.h" />
-    <ClInclude Include="Renderer\ObjLoader.h" />
-    <ClInclude Include="Renderer\Renderer.h" />
+    <ClInclude Include="Renderer\EntityRenderer\ObjLoader.h" />
+    <ClInclude Include="Renderer\EntityRenderer\Renderer.h" />
     <ClInclude Include="Renderer\stb_image.h" />
-    <ClInclude Include="Renderer\WaterFrameBuffers.h" />
-    <ClInclude Include="Renderer\WaterRenderer.h" />
+    <ClInclude Include="Renderer\WaterRenderer\WaterFrameBuffers.h" />
+    <ClInclude Include="Renderer\WaterRenderer\WaterRenderer.h" />
+    <ClInclude Include="Shaders\TextShader.h" />
     <ClInclude Include="Shaders\GuiShader.h" />
     <ClInclude Include="Shaders\ShaderProgram.h" />
     <ClInclude Include="Shaders\StaticShader.h" />

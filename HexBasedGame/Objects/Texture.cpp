@@ -54,6 +54,26 @@ Texture::Texture(GLint format, GLenum sourceFormat, int width, int height, GLenu
     glBindTexture(GL_TEXTURE_2D, 0);
 }
 
+Texture::Texture(GLint format, GLenum sourceFormat, int width, int height, GLenum type, const void* data, bool generateMipmaps) {
+    glGenTextures(1, &id);
+    glBindTexture(GL_TEXTURE_2D, id);
+
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+    glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, sourceFormat, type, data);
+
+    if (generateMipmaps) {
+        glGenerateMipmap(GL_TEXTURE_2D);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+        glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_LOD_BIAS, -0.5f);
+    }
+
+    glBindTexture(GL_TEXTURE_2D, 0);
+}
+
 GLuint Texture::GetId() {
     return id;
 }

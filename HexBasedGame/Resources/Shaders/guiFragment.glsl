@@ -9,7 +9,7 @@ uniform float isHighlighted;
 
 void main() {
 	if (isHighlighted == 1.0) {
-		FragColor = mix(texture(tex, texCoords), vec4(1.0, 1.0, 1.0, 1.0), 0.5);
+		FragColor = mix(texture(tex, texCoords), vec4(1.0, 1.0, 1.0, 1.0), 0.3);
 	} else {
 		FragColor = texture(tex, texCoords);
 	}

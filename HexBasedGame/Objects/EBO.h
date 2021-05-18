@@ -6,9 +6,7 @@
 class EBO {
 public:
     EBO();
-    void Bind();
-    void StoreData(GLsizeiptr size, const void* data);
-    void Unbind();
+    GLuint GetId();
     ~EBO();
 private:
     GLuint id;

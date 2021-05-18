@@ -45,16 +45,16 @@
     <ClCompile Include="Physics\Raycast.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Renderer\MasterRenderer.cpp">
+    <ClCompile Include="Renderer\EntityRenderer\MasterRenderer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Renderer\Renderer.cpp">
+    <ClCompile Include="Renderer\EntityRenderer\Renderer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Renderer\stb_image.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Renderer\ObjLoader.cpp">
+    <ClCompile Include="Renderer\EntityRenderer\ObjLoader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Renderer\Mesh.cpp">
@@ -66,10 +66,10 @@
     <ClCompile Include="Renderer\Material.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Renderer\WaterFrameBuffers.cpp">
+    <ClCompile Include="Renderer\WaterRenderer\WaterFrameBuffers.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Renderer\WaterRenderer.cpp">
+    <ClCompile Include="Renderer\WaterRenderer\WaterRenderer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Shaders\ShaderProgram.cpp">
@@ -96,7 +96,7 @@
     <ClCompile Include="Objects\Texture.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Renderer\GuiRenderer.cpp">
+    <ClCompile Include="Renderer\GuiRenderer\GuiRenderer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Entities\GuiTexture.cpp">
@@ -106,6 +106,24 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Entities\GuiButton.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer\TextRenderer\Character.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer\TextRenderer\FontLoader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer\TextRenderer\TextRenderer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Shaders\TextShader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BuildController.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Entities\Text.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -131,7 +149,7 @@
     <ClInclude Include="Physics\Collision.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Renderer\MasterRenderer.h">
+    <ClInclude Include="Renderer\EntityRenderer\MasterRenderer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Physics\Collider.h">
@@ -140,13 +158,13 @@
     <ClInclude Include="Physics\Raycast.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Renderer\Renderer.h">
+    <ClInclude Include="Renderer\EntityRenderer\Renderer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Renderer\stb_image.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Renderer\ObjLoader.h">
+    <ClInclude Include="Renderer\EntityRenderer\ObjLoader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Renderer\Mesh.h">
@@ -158,10 +176,10 @@
     <ClInclude Include="Renderer\Material.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Renderer\WaterFrameBuffers.h">
+    <ClInclude Include="Renderer\WaterRenderer\WaterFrameBuffers.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Renderer\WaterRenderer.h">
+    <ClInclude Include="Renderer\WaterRenderer\WaterRenderer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Shaders\ShaderProgram.h">
@@ -188,7 +206,7 @@
     <ClInclude Include="Objects\Texture.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Renderer\GuiRenderer.h">
+    <ClInclude Include="Renderer\GuiRenderer\GuiRenderer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Entities\GuiTexture.h">
@@ -198,6 +216,24 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Entities\GuiButton.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\TextRenderer\Character.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\TextRenderer\FontLoader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\TextRenderer\TextRenderer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Shaders\TextShader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BuildController.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Entities\Text.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

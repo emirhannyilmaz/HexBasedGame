@@ -8,6 +8,7 @@ class Texture {
 public:
     Texture(const char* texturePath, GLint format, GLenum sourceFormat, GLenum type, bool flip, bool generateMipmaps);
     Texture(GLint format, GLenum sourceFormat, int width, int height, GLenum type, bool generateMipmaps);
+    Texture(GLint format, GLenum sourceFormat, int width, int height, GLenum type, const void* data, bool generateMipmaps);
     GLuint GetId();
     ~Texture();
 private:

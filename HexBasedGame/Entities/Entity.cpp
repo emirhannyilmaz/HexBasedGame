@@ -1,6 +1,6 @@
 #include "Entity.h"
 
-Entity::Entity(Model* _model, std::vector<Collider> _colliders, glm::vec3 _position, float _rotationInDegrees, glm::vec3 _rotationAxis, glm::vec3 _scale) {
+Entity::Entity(Model* _model, std::vector<Collider> _colliders, glm::vec3 _position, float _rotationInDegrees, glm::vec3 _rotationAxis, glm::vec3 _scale, std::string _hexName) {
 	model = _model;
 	colliders = _colliders;
 	position = _position;
@@ -15,6 +15,16 @@ Entity::Entity(Model* _model, std::vector<Collider> _colliders, glm::vec3 _posit
 			colliders.at(i).TransformVertex(j, resultInVec3);
 		}
 	}
+	name = _hexName;
+}
+
+Entity::Entity(Model* _model, glm::vec3 _position, float _rotationInDegrees, glm::vec3 _rotationAxis, glm::vec3 _scale, std::string _hexName) {
+	model = _model;
+	position = _position;
+	rotationInDegrees = _rotationInDegrees;
+	rotationAxis = _rotationAxis;
+	scale = _scale;
+	name = _hexName;
 }
 
 glm::mat4 Entity::GetModelMatrix() {
@@ -60,4 +70,12 @@ void Entity::SetIsSelected(bool value) {
 	if (value) {
 		isHighlighted = false;
 	}
+}
+
+std::string Entity::GetName() {
+	return name;
+}
+
+void Entity::SetName(std::string _hexName) {
+	name = _hexName;
 }
