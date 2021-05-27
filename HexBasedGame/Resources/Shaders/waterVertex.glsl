@@ -13,7 +13,7 @@ uniform mat4 projection;
 uniform vec3 cameraPosition;
 uniform vec3 lightPosition;
 
-const float tiling = 10.0;
+const float tiling = 20.0;
 
 void main() {
     vec4 worldPosition = model * vec4(position.x, 0.0, position.z, 1.0);

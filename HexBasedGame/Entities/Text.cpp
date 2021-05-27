@@ -1,11 +1,12 @@
 #include "Text.h"
 
-Text::Text(std::string _text, glm::vec2 _position, glm::vec2 _scale, glm::vec3 _color, bool _isActive) {
+Text::Text(std::string _text, glm::vec2 _position, glm::vec2 _scale, glm::vec3 _color, bool _isActive, bool _isCentered) {
 	text = _text;
 	position = _position;
 	scale = _scale;
 	color = _color;
 	isActive = _isActive;
+	isCentered = _isCentered;
 }
 
 std::string Text::GetText() {
@@ -46,4 +47,12 @@ bool Text::GetIsActive() {
 
 void Text::SetIsActive(bool value) {
 	isActive = value;
+}
+
+bool Text::GetIsCentered() {
+	return isCentered;
+}
+
+void Text::SetIsCentered(bool value) {
+	isCentered = value;
 }

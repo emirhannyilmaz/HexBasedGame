@@ -35,8 +35,9 @@ void GuiButton::SetIsActive(bool value) {
 }
 
 void GuiButton::HandleMouse() {
+	float invertedMouseY = ((float) Window::GetHeight() - Mouse::GetY());
 	if (Mouse::GetX() >= (positionInPixels.x - (scaleInPixels.x / 2)) && Mouse::GetX() <= (positionInPixels.x + (scaleInPixels.x / 2)) &&
-		Mouse::GetY() >= (positionInPixels.y - (scaleInPixels.y / 2)) && Mouse::GetY() <= (positionInPixels.y + (scaleInPixels.y / 2))) {
+		invertedMouseY >= (positionInPixels.y - (scaleInPixels.y / 2)) && invertedMouseY <= (positionInPixels.y + (scaleInPixels.y / 2))) {
 		isHighlighted = true;
 		if (Mouse::GetMouseButtonDown(0)) {
 			ClickCallback();

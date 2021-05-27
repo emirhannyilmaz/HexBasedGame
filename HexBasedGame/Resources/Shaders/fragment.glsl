@@ -21,7 +21,7 @@ void main() {
     vec3 unitToLightVector = normalize(toLightVector);
     
     float nDot1 = dot(unitSurfaceNormal, unitToLightVector);
-    float brightness = max(nDot1, 0.2);
+    float brightness = max(nDot1, 0.4);
     vec3 diffuse = brightness * lightColor;
     
     vec3 unitToCameraVector = normalize(toCameraVector);
@@ -34,7 +34,7 @@ void main() {
     
     if (isHighlighted == 1.0) {
         FragColor = texture(tex, passTexCoords);
-        FragColor = mix(FragColor, vec4(1.0, 1.0, 1.0, 1.0), 0.6);
+        FragColor = mix(FragColor, vec4(1.0, 1.0, 1.0, 1.0), 0.4);
     } else if (isSelected == 1.0) {
         FragColor = texture(tex, passTexCoords);
     } else {

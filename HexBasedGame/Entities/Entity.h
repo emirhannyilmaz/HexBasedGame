@@ -9,16 +9,16 @@
 
 class Entity {
 public:
-    Entity(Model* _model, std::vector<Collider> _colliders, glm::vec3 _position, float _rotationInDegrees, glm::vec3 _rotationAxis, glm::vec3 _scale, std::string _hexName = "Empty");
-    Entity(Model* _model, glm::vec3 _position, float _rotationInDegrees, glm::vec3 _rotationAxis, glm::vec3 _scale, std::string _hexName = "Empty");
+    Entity(Model* _model, std::vector<Collider> _colliders, glm::vec3 _position, float _rotationInDegrees, glm::vec3 _rotationAxis, glm::vec3 _scale, std::string _name = "Unnamed");
+    Entity(Model* _model, glm::vec3 _position, float _rotationInDegrees, glm::vec3 _rotationAxis, glm::vec3 _scale, std::string _name = "Unnamed");
     glm::mat4 GetModelMatrix();
     Model* GetModel();
     std::vector<Collider> GetColliders();
     glm::vec3 GetPosition();
     void SetPosition(glm::vec3 _position);
     bool GetIsHighlighted();
-    bool GetIsSelected();
     void SetIsHighlighted(bool value);
+    bool GetIsSelected();
     void SetIsSelected(bool value);
     std::string GetName();
     void SetName(std::string _name);

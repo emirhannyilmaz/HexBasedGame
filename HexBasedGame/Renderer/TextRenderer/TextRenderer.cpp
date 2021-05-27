@@ -19,14 +19,23 @@ void TextRenderer::Render(std::vector<Text*> texts) {
 	for (int i = 0; i < texts.size(); i++) {
 		std::string text = texts.at(i)->GetText();
 		float x = texts.at(i)->GetPosition().x;
+		float y = texts.at(i)->GetPosition().y;
+		float textWidth = 0.0f;
 		if (texts.at(i)->GetIsActive()) {
 			shader.LoadTextColor(texts.at(i)->GetColor());
 			std::string::const_iterator c;
+			if (texts.at(i)->GetIsCentered()) {
+				for (c = text.begin(); c != text.end(); c++) {
+					Character* ch = characters[*c];
+					textWidth += ch->GetSize().x * texts.at(i)->GetScale().x;
+				}
+				x = texts.at(i)->GetPosition().x - (textWidth / 2.0f);
+			}
 			for (c = text.begin(); c != text.end(); c++) {
 				Character* ch = characters[*c];
 
 				float xpos = x + ch->GetBearing().x * texts.at(i)->GetScale().x;
-				float ypos = texts.at(i)->GetPosition().y - (ch->GetSize().y - ch->GetBearing().y) * texts.at(i)->GetScale().y;
+				float ypos = y - (ch->GetSize().y - ch->GetBearing().y) * texts.at(i)->GetScale().y;
 
 				float w = ch->GetSize().x * texts.at(i)->GetScale().x;
 				float h = ch->GetSize().y * texts.at(i)->GetScale().y;

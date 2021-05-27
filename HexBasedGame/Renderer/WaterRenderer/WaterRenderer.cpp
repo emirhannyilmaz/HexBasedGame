@@ -1,7 +1,7 @@
 #include "WaterRenderer.h"
 
-const char* WaterRenderer::DUDV_MAP = "Resources/Textures/waterDUDV.png";
-const char* WaterRenderer::NORMAL_MAP = "Resources/Textures/normalMap.png";
+const char* WaterRenderer::DUDV_MAP = "Resources/Textures/WaterDUDV.png";
+const char* WaterRenderer::NORMAL_MAP = "Resources/Textures/NormalMap.png";
 const float WaterRenderer::WAVE_SPEED = 0.00003f;
 
 WaterRenderer::WaterRenderer(Camera* _camera, WaterFrameBuffers* _fbos) {

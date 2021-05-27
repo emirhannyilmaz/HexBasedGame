@@ -24,11 +24,17 @@
 #include "Renderer/TextRenderer/FontLoader.h"
 #include "Renderer/TextRenderer/Character.h"
 #include <map>
+#include "PlayerStats.h"
+#include "Entities/Buildings/Hex.h"
 
 BuildController* buildController = NULL;
 
 void BuildTownButtonClick() {
 	buildController->BuildTown();
+}
+
+void BuildSawmillButtonClick() {
+	buildController->BuildSawmill();
 }
 
 int main() {
@@ -38,11 +44,11 @@ int main() {
 	}
 
 	std::map<char, Character*> characters;
-	FontLoader::LoadFont("Resources/Fonts/arial.ttf", 48, characters);
+	FontLoader::LoadFont("Resources/Fonts/arial.ttf", 35, characters);
 
-	Camera camera(45.0f, 1280.0f, 720.0f, 0.1f, 500.0f, glm::vec3(0.0f, 0.0f, 0.0f), 30.0f, 0.0f, 0.0f, 80.0f, 50.0f, 110.0f, 0.0f);
-	Light light(glm::vec3(5000.0f, 5000.0f, 5000.0f), glm::vec3(1.0f, 1.0f, 1.0f));
-	MasterRenderer masterRenderer(&camera, &light, glm::vec3(72.0f / 255.0f, 219.0f / 255.0f, 251.0f / 255.0f), 0.0030f, 2.0f);
+	Camera camera(60.0f, 1280.0f, 720.0f, 0.1f, 500.0f, glm::vec3(0.0f, 0.0f, 0.0f), 30.0f, 0.0f, 0.0f, 80.0f, 50.0f, 110.0f, 180.0f);
+	Light light(glm::vec3(5000.0f, 5000.0f, -5000.0f), glm::vec3(1.0f, 1.0f, 1.0f));
+	MasterRenderer masterRenderer(&camera, &light, glm::vec3(72.0f / 255.0f, 219.0f / 255.0f, 251.0f / 255.0f), 0.0030f, 2.0f);	
 	GuiRenderer guiRenderer;
 	WaterFrameBuffers buffers;
 	WaterRenderer waterRenderer(&camera, &buffers);
@@ -54,52 +60,76 @@ int main() {
 	std::vector<glm::vec3> normals;
 	std::vector<GLuint> indices;
 	std::vector<Collider> colliders;
-	ObjLoader::LoadObj("Resources/Models/hex.obj", vertices, texCoords, normals, indices, colliders);
+	ObjLoader::LoadObj("Resources/Models/Hex.obj", vertices, texCoords, normals, indices, colliders);
 	Mesh mesh(vertices, texCoords, normals, indices);
-	Material material("Resources/Textures/hex.png", GL_RGB, GL_RGB, GL_UNSIGNED_BYTE, true, 1.0f, 0.5f);
+	Material material("Resources/Textures/Hex.png", GL_RGB, GL_RGB, GL_UNSIGNED_BYTE, true, 10.0f, 0.3f);
 	Model model(&mesh, &material);
 
-	Entity entity(&model, colliders, glm::vec3(0.0f, 0.0f, 0.0f), 0.0f, glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(5.0f, 5.0f, 5.0f));
-	Entity entity2(&model, colliders, glm::vec3(8.6f, 0.0f, 0.0f), 0.0f, glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(5.0f, 5.0f, 5.0f));
-	Entity entity3(&model, colliders, glm::vec3(17.2f, 0.0f, 0.0f), 0.0f, glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(5.0f, 5.0f, 5.0f));
-	Entity entity4(&model, colliders, glm::vec3(-8.6f, 0.0f, 0.0f), 0.0f, glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(5.0f, 5.0f, 5.0f));
-	Entity entity5(&model, colliders, glm::vec3(-17.2f, 0.0f, 0.0f), 0.0f, glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(5.0f, 5.0f, 5.0f));
-	Entity entity6(&model, colliders, glm::vec3(4.3f, 0.0f, -8.6f), 0.0f, glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(5.0f, 5.0f, 5.0f));
-	Entity entity7(&model, colliders, glm::vec3(-4.3f, 0.0f, -8.6f), 0.0f, glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(5.0f, 5.0f, 5.0f));
-	Entity entity8(&model, colliders, glm::vec3(12.9f, 0.0f, -8.6f), 0.0f, glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(5.0f, 5.0f, 5.0f));
-	Entity entity9(&model, colliders, glm::vec3(21.5f, 0.0f, -8.6f), 0.0f, glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(5.0f, 5.0f, 5.0f));
-	Entity entity10(&model, colliders, glm::vec3(-12.9f, 0.0f, -8.6f), 0.0f, glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(5.0f, 5.0f, 5.0f));
-	Entity entity11(&model, colliders, glm::vec3(-21.5f, 0.0f, -8.6f), 0.0f, glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(5.0f, 5.0f, 5.0f));
+	Hex hex1(&model, colliders, glm::vec3(0.0f, 0.0f, 0.0f), 0.0f, glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(10.0f, 10.0f, 10.0f), "Empty");
+	Hex hex2(&model, colliders, glm::vec3(17.3f, 0.0f, 0.0f), 0.0f, glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(10.0f, 10.0f, 10.0f), "Empty");
+	Hex hex3(&model, colliders, glm::vec3(34.6f, 0.0f, 0.0f), 0.0f, glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(10.0f, 10.0f, 10.0f), "Empty");
+	Hex hex4(&model, colliders, glm::vec3(-17.3f, 0.0f, 0.0f), 0.0f, glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(10.0f, 10.0f, 10.0f), "Empty");
+	Hex hex5(&model, colliders, glm::vec3(-34.6f, 0.0f, 0.0f), 0.0f, glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(10.0f, 10.0f, 10.0f), "Empty");
+	Hex hex6(&model, colliders, glm::vec3(8.65f, 0.0f, -15.0f), 0.0f, glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(10.0f, 10.0f, 10.0f), "Empty");
+	Hex hex7(&model, colliders, glm::vec3(25.95f, 0.0f, -15.0f), 0.0f, glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(10.0f, 10.0f, 10.0f), "Empty");
+	Hex hex8(&model, colliders, glm::vec3(43.25f, 0.0f, -15.0f), 0.0f, glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(10.0f, 10.0f, 10.0f), "Empty");
+	Hex hex9(&model, colliders, glm::vec3(-8.65f, 0.0f, -15.0f), 0.0f, glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(10.0f, 10.0f, 10.0f), "Empty");
+	Hex hex10(&model, colliders, glm::vec3(-25.95f, 0.0f, -15.0f), 0.0f, glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(10.0f, 10.0f, 10.0f), "Empty");
+	Hex hex11(&model, colliders, glm::vec3(-43.25f, 0.0f, -15.0f), 0.0f, glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(10.0f, 10.0f, 10.0f), "Empty");
 	std::vector<Entity*> entities;
-	entities.push_back(&entity);
-	entities.push_back(&entity2);
-	entities.push_back(&entity3);
-	entities.push_back(&entity4);
-	entities.push_back(&entity5);
-	entities.push_back(&entity6);
-	entities.push_back(&entity7);
-	entities.push_back(&entity8);
-	entities.push_back(&entity9);
-	entities.push_back(&entity10);
-	entities.push_back(&entity11);
+	entities.push_back(&hex1);
+	entities.push_back(&hex2);
+	entities.push_back(&hex3);
+	entities.push_back(&hex4);
+	entities.push_back(&hex5);
+	entities.push_back(&hex6);
+	entities.push_back(&hex7);
+	entities.push_back(&hex8);
+	entities.push_back(&hex9);
+	entities.push_back(&hex10);
+	entities.push_back(&hex11);
+	std::vector<Hex*> hexes;
+	hexes.push_back(&hex1);
+	hexes.push_back(&hex2);
+	hexes.push_back(&hex3);
+	hexes.push_back(&hex4);
+	hexes.push_back(&hex5);
+	hexes.push_back(&hex6);
+	hexes.push_back(&hex7);
+	hexes.push_back(&hex8);
+	hexes.push_back(&hex9);
+	hexes.push_back(&hex10);
+	hexes.push_back(&hex11);
 
 	WaterTile waterTile(0.0f, 0.0f, 0.0f);
 	std::vector<WaterTile*> waterTiles;
 	waterTiles.push_back(&waterTile);
 
-	GuiTexture hexNameTexture("Resources/Textures/hexInfo.png", GL_RGB, GL_RGB, GL_UNSIGNED_BYTE, glm::vec2(Window::GetWidth() / 2.0f, Window::GetHeight() - 80.0f), 0.0f, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec2(400.0f, 80.0f), false);
+	GuiTexture infoTexture("Resources/Textures/Info.png", GL_RGBA, GL_RGBA, GL_UNSIGNED_BYTE, glm::vec2(Window::GetWidth() / 2.0f, 30.0f), 0.0f, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec2(600.0f, 60.0f), true);
+	GuiTexture hexInfoTexture("Resources/Textures/HexInfo.png", GL_RGBA, GL_RGBA, GL_UNSIGNED_BYTE, glm::vec2(Window::GetWidth() / 2.0f, Window::GetHeight() - 30.0f), 0.0f, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec2(600.0f, 60.0f), false);
+	GuiTexture buildMenuTexture("Resources/Textures/BuildMenu.png", GL_RGBA, GL_RGBA, GL_UNSIGNED_BYTE, glm::vec2(60.0f, Window::GetHeight() / 2.0f), 0.0f, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec2(120.0f, 600.0f), false);
 	std::vector<GuiTexture*> guiTextures;
-	guiTextures.push_back(&hexNameTexture);
+	guiTextures.push_back(&infoTexture);
+	guiTextures.push_back(&hexInfoTexture);
+	guiTextures.push_back(&buildMenuTexture);
 
-	GuiButton buildTownButton("Resources/Textures/buildTown.png", GL_RGB, GL_RGB, GL_UNSIGNED_BYTE, glm::vec2(100.0f, Window::GetHeight() / 2.0f), 0.0f, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec2(100.0f, 100.0f), false, BuildTownButtonClick);
+	GuiButton buildTownButton("Resources/Textures/BuildHouseButton.png", GL_RGBA, GL_RGBA, GL_UNSIGNED_BYTE, glm::vec2(60.0f, Window::GetHeight() / 2.0f + 55.0f), 0.0f, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec2(100.0f, 100.0f), false, BuildTownButtonClick);
+	GuiButton buildSawmillButton("Resources/Textures/BuildSawmillButton.png", GL_RGBA, GL_RGBA, GL_UNSIGNED_BYTE, glm::vec2(60.0f, Window::GetHeight() / 2.0f - 55.0f), 0.0f, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec2(100.0f, 100.0f), false, BuildSawmillButtonClick);
 	std::vector<GuiButton*> guiButtons;
 	guiButtons.push_back(&buildTownButton);
+	guiButtons.push_back(&buildSawmillButton);
 
-	Text hexNameText("", glm::vec2(Window::GetWidth() / 2.0f, Window::GetHeight() - 96.0f), glm::vec2(1.0f, 1.0f), glm::vec3(1.0f, 1.0f, 1.0f), false);
+	Text goldCountText("Gold: " + std::to_string(PlayerStats::GetGoldCount()), glm::vec2(Window::GetWidth() / 2.0f - 300.0f + 10.0f, 15.0f), glm::vec2(1.0f, 1.0f), glm::vec3(1.0f, 1.0f, 1.0f), true, false);
+	Text woodCountText("Wood: " + std::to_string(PlayerStats::GetWoodCount()), glm::vec2(Window::GetWidth() / 2.0f + 120, 15.0f), glm::vec2(1.0f, 1.0f), glm::vec3(1.0f, 1.0f, 1.0f), true, false);
+	Text hexNameText("", glm::vec2(Window::GetWidth() / 2.0f, Window::GetHeight() - 40.0f), glm::vec2(1.0f, 1.0f), glm::vec3(1.0f, 1.0f, 1.0f), false, true);
 	std::vector<Text*> texts;
+	texts.push_back(&goldCountText);
+	texts.push_back(&woodCountText);
 	texts.push_back(&hexNameText);
 
-	buildController = new BuildController(&entities, &hexNameText);
+	std::vector<ResourceGenerator*> resourceGenerators;
+
+	buildController = new BuildController(&entities, hexes, &hexNameText, &goldCountText, &woodCountText, &resourceGenerators);
 
 	while (!window.ShouldClose()) {
 		window.CalculateDeltaTime();
@@ -108,8 +138,20 @@ int main() {
 		for (GuiButton* guiButton : guiButtons) {
 			guiButton->HandleMouse();
 		}
+		for (ResourceGenerator* resourceGenerator : resourceGenerators) {
+			switch (resourceGenerator->GetResourceType()) {
+				case GOLD:
+					resourceGenerator->Update(goldCountText);
+					break;
+				case WOOD:
+					resourceGenerator->Update(woodCountText);
+					break;
+				default:
+					break;
+			}
+		}
 		ray.Update();
-		ray.CheckForCollisions(entities, guiButtons, &hexNameTexture, &hexNameText);
+		ray.CheckForCollisions(entities, &buildMenuTexture, guiButtons, &hexInfoTexture, &hexNameText);
 
 		glEnable(GL_CLIP_DISTANCE0);
 		buffers.BindReflectionFrameBuffer();
@@ -117,7 +159,7 @@ int main() {
 		camera.SetPosition(glm::vec3(camera.GetPosition().x, camera.GetPosition().y - distance, camera.GetPosition().z));
 		camera.InvertPitch();
 		masterRenderer.Clear();
-		masterRenderer.RenderScene(entities, glm::vec4(0.0f, 1.0f, 0.0f, -waterTile.GetHeight() + 1.0f));
+		masterRenderer.RenderScene(entities, glm::vec4(0.0f, 1.0f, 0.0f, -waterTile.GetHeight() + 0.5f));
 		camera.SetPosition(glm::vec3(camera.GetPosition().x, camera.GetPosition().y + distance, camera.GetPosition().z));
 		camera.InvertPitch();
 
@@ -137,6 +179,6 @@ int main() {
 	}
 
 	delete buildController;
-	
+
 	return 0;
 }

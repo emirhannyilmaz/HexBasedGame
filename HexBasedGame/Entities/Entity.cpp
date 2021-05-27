@@ -1,6 +1,6 @@
 #include "Entity.h"
 
-Entity::Entity(Model* _model, std::vector<Collider> _colliders, glm::vec3 _position, float _rotationInDegrees, glm::vec3 _rotationAxis, glm::vec3 _scale, std::string _hexName) {
+Entity::Entity(Model* _model, std::vector<Collider> _colliders, glm::vec3 _position, float _rotationInDegrees, glm::vec3 _rotationAxis, glm::vec3 _scale, std::string _name) {
 	model = _model;
 	colliders = _colliders;
 	position = _position;
@@ -15,16 +15,16 @@ Entity::Entity(Model* _model, std::vector<Collider> _colliders, glm::vec3 _posit
 			colliders.at(i).TransformVertex(j, resultInVec3);
 		}
 	}
-	name = _hexName;
+	name = _name;
 }
 
-Entity::Entity(Model* _model, glm::vec3 _position, float _rotationInDegrees, glm::vec3 _rotationAxis, glm::vec3 _scale, std::string _hexName) {
+Entity::Entity(Model* _model, glm::vec3 _position, float _rotationInDegrees, glm::vec3 _rotationAxis, glm::vec3 _scale, std::string _name) {
 	model = _model;
 	position = _position;
 	rotationInDegrees = _rotationInDegrees;
 	rotationAxis = _rotationAxis;
 	scale = _scale;
-	name = _hexName;
+	name = _name;
 }
 
 glm::mat4 Entity::GetModelMatrix() {
@@ -57,12 +57,12 @@ bool Entity::GetIsHighlighted() {
 	return isHighlighted;
 }
 
-bool Entity::GetIsSelected() {
-	return isSelected;
-}
-
 void Entity::SetIsHighlighted(bool value) {
 	isHighlighted = value;
+}
+
+bool Entity::GetIsSelected() {
+	return isSelected;
 }
 
 void Entity::SetIsSelected(bool value) {
@@ -76,6 +76,6 @@ std::string Entity::GetName() {
 	return name;
 }
 
-void Entity::SetName(std::string _hexName) {
-	name = _hexName;
+void Entity::SetName(std::string _name) {
+	name = _name;
 }
