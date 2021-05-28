@@ -47,8 +47,8 @@ int main() {
 	FontLoader::LoadFont("Resources/Fonts/arial.ttf", 35, characters);
 
 	Camera camera(60.0f, 1280.0f, 720.0f, 0.1f, 500.0f, glm::vec3(0.0f, 0.0f, 0.0f), 30.0f, 0.0f, 0.0f, 80.0f, 50.0f, 110.0f, 180.0f);
-	Light light(glm::vec3(5000.0f, 5000.0f, -5000.0f), glm::vec3(1.0f, 1.0f, 1.0f));
-	MasterRenderer masterRenderer(&camera, &light, glm::vec3(72.0f / 255.0f, 219.0f / 255.0f, 251.0f / 255.0f), 0.0030f, 2.0f);	
+	//MasterRenderer masterRenderer(&camera, glm::vec3(72.0f / 255.0f, 219.0f / 255.0f, 251.0f / 255.0f), 0.0030f, 2.0f);
+	MasterRenderer masterRenderer(&camera, glm::vec3(44.0f / 255.0f, 62.0f / 255.0f, 80.0f / 255.0f), 0.0030f, 2.0f);
 	GuiRenderer guiRenderer;
 	WaterFrameBuffers buffers;
 	WaterRenderer waterRenderer(&camera, &buffers);
@@ -105,6 +105,14 @@ int main() {
 	std::vector<WaterTile*> waterTiles;
 	waterTiles.push_back(&waterTile);
 
+	Light mainLight(glm::vec3(5000.0f, 5000.0f, -5000.0f), glm::vec3(1.0f, 1.0f, 1.0f));
+	Light light1(glm::vec3(0.0f, 5.0f, 0.0f), glm::vec3(2.0f, 0.0f, 0.0f), glm::vec3(1.0f, 0.01f, 0.002f));
+	Light light2(glm::vec3(34.6f, 5.0f, 0.0f), glm::vec3(0.0f, 2.0f, 0.0f), glm::vec3(1.0f, 0.01f, 0.002f));
+	std::vector<Light*> lights;
+	lights.push_back(&mainLight);
+	lights.push_back(&light1);
+	lights.push_back(&light2);
+
 	GuiTexture infoTexture("Resources/Textures/Info.png", GL_RGBA, GL_RGBA, GL_UNSIGNED_BYTE, glm::vec2(Window::GetWidth() / 2.0f, 30.0f), 0.0f, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec2(600.0f, 60.0f), true);
 	GuiTexture hexInfoTexture("Resources/Textures/HexInfo.png", GL_RGBA, GL_RGBA, GL_UNSIGNED_BYTE, glm::vec2(Window::GetWidth() / 2.0f, Window::GetHeight() - 30.0f), 0.0f, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec2(600.0f, 60.0f), false);
 	GuiTexture buildMenuTexture("Resources/Textures/BuildMenu.png", GL_RGBA, GL_RGBA, GL_UNSIGNED_BYTE, glm::vec2(60.0f, Window::GetHeight() / 2.0f), 0.0f, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec2(120.0f, 600.0f), false);
@@ -159,19 +167,19 @@ int main() {
 		camera.SetPosition(glm::vec3(camera.GetPosition().x, camera.GetPosition().y - distance, camera.GetPosition().z));
 		camera.InvertPitch();
 		masterRenderer.Clear();
-		masterRenderer.RenderScene(entities, glm::vec4(0.0f, 1.0f, 0.0f, -waterTile.GetHeight() + 0.5f));
+		masterRenderer.RenderScene(entities, lights, glm::vec4(0.0f, 1.0f, 0.0f, -waterTile.GetHeight() + 0.5f));
 		camera.SetPosition(glm::vec3(camera.GetPosition().x, camera.GetPosition().y + distance, camera.GetPosition().z));
 		camera.InvertPitch();
 
 		buffers.BindRefractionFrameBuffer();
 		masterRenderer.Clear();
-		masterRenderer.RenderScene(entities, glm::vec4(0.0f, -1.0f, 0.0f, waterTile.GetHeight()));
+		masterRenderer.RenderScene(entities, lights, glm::vec4(0.0f, -1.0f, 0.0f, waterTile.GetHeight()));
 
 		glDisable(GL_CLIP_DISTANCE0);
 		buffers.UnbindCurrentFrameBuffer();
 		masterRenderer.Clear();
-		masterRenderer.RenderScene(entities, glm::vec4(0.0f, 1.0f, 0.0f, 1000000.0f));
-		waterRenderer.Render(waterTiles, &light);
+		masterRenderer.RenderScene(entities, lights, glm::vec4(0.0f, 1.0f, 0.0f, 1000000.0f));
+		waterRenderer.Render(waterTiles, &mainLight);
 		guiRenderer.Render(guiTextures, guiButtons);
 		textRenderer.Render(texts);
 

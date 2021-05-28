@@ -10,9 +10,9 @@
 
 class ShaderProgram {
 public:
-    ShaderProgram(const char* vertexShaderPath, const char* fragmentShaderPath);
+    ShaderProgram(std::string vertexShaderPath, std::string fragmentShaderPath);
     ~ShaderProgram();
-    GLint GetUniformLocation(const char* uniformName);
+    GLint GetUniformLocation(std::string uniformName);
     void LoadMatrix4f(GLint location, glm::mat4 matrix);
     void LoadVector3f(GLint location, glm::vec3 vector);
     void LoadVector4f(GLint location, glm::vec4 vector);

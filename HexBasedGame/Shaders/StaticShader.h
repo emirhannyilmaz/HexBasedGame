@@ -2,6 +2,8 @@
 
 #include <iostream>
 #include "ShaderProgram.h"
+#include "../Entities/Light.h"
+#include <vector>
 
 class StaticShader : public ShaderProgram {
 public:
@@ -9,7 +11,7 @@ public:
     void LoadModelMatrix(glm::mat4 matrix);
     void LoadViewMatrix(glm::mat4 matrix);
     void LoadProjectionMatrix(glm::mat4 matrix);
-    void LoadLight(glm::vec3 position, glm::vec3 color);
+    void LoadLights(std::vector<Light*> lights);
     void LoadShineVariables(float shineDamper, float reflectivity);
     void LoadIsHighlighted(bool value);
     void LoadIsSelected(bool value);
@@ -18,11 +20,13 @@ public:
     void LoadFogGradient(float gradient);
     void LoadClipPlane(glm::vec4 clipPlane);
 private:
+    static const int MAX_LIGHTS = 4;
     GLint modelLoc;
     GLint viewLoc;
     GLint projectionLoc;
-    GLint lightPositionLoc;
-    GLint lightColorLoc;
+    GLint lightPositionLoc[MAX_LIGHTS];
+    GLint lightColorLoc[MAX_LIGHTS];
+    GLint attenuationLoc[MAX_LIGHTS];
     GLint shineDamperLoc;
     GLint reflectivityLoc;
     GLint isHighlightedLoc;

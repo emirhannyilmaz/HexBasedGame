@@ -1,6 +1,6 @@
 #include "ShaderProgram.h"
 
-ShaderProgram::ShaderProgram(const char* vertexShaderPath, const char* fragmentShaderPath) {
+ShaderProgram::ShaderProgram(std::string vertexShaderPath, std::string fragmentShaderPath) {
     std::string vertexCode;
     std::string fragmentCode;
     std::ifstream vShaderFile;
@@ -64,8 +64,8 @@ ShaderProgram::ShaderProgram(const char* vertexShaderPath, const char* fragmentS
     }
 }
 
-GLint ShaderProgram::GetUniformLocation(const char* uniformName) {
-    return glGetUniformLocation(programId, uniformName);
+GLint ShaderProgram::GetUniformLocation(std::string uniformName) {
+    return glGetUniformLocation(programId, uniformName.c_str());
 }
 
 void ShaderProgram::LoadMatrix4f(GLint location, glm::mat4 matrix) {

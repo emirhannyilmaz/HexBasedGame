@@ -6,14 +6,14 @@ layout (location = 2) in vec3 normal;
 
 out vec2 passTexCoords;
 out vec3 surfaceNormal;
-out vec3 toLightVector;
+out vec3 toLightVector[4];
 out vec3 toCameraVector;
 out float visibility;
 
 uniform mat4 model;
 uniform mat4 view;
 uniform mat4 projection;
-uniform vec3 lightPosition;
+uniform vec3 lightPosition[4];
 uniform float fogDensity;
 uniform float fogGradient;
 uniform vec4 clipPlane;
@@ -26,7 +26,9 @@ void main() {
     passTexCoords = texCoords;
     
     surfaceNormal = (model * vec4(normal, 0.0)).xyz;
-    toLightVector = lightPosition - worldPosition.xyz;
+    for(int i = 0; i < 4; i++) {
+        toLightVector[i] = lightPosition[i] - worldPosition.xyz;
+    }
     toCameraVector = (inverse(view) * vec4(0.0, 0.0, 0.0, 1.0)).xyz - worldPosition.xyz;
     
     float distanceFromCamera = length(positionRelativeToCamera);

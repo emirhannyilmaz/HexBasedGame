@@ -1,8 +1,7 @@
 #include "MasterRenderer.h"
 
-MasterRenderer::MasterRenderer(Camera* _camera, Light* _light, glm::vec3 _skyColor, float fogDensity, float fogGradient) {
+MasterRenderer::MasterRenderer(Camera* _camera, glm::vec3 _skyColor, float fogDensity, float fogGradient) {
     camera = _camera;
-    light = _light;
     skyColor = _skyColor;
     staticShader.Start();
     staticShader.LoadFogDensity(fogDensity);
@@ -27,22 +26,22 @@ void MasterRenderer::ProcessEntity(Entity* entity) {
     }
 }
 
-void MasterRenderer::Render(glm::vec4 clipPlane) {
+void MasterRenderer::Render(std::vector<Light*> lights, glm::vec4 clipPlane) {
     glEnable(GL_DEPTH_TEST);
     staticShader.Start();
     staticShader.LoadClipPlane(clipPlane);
     staticShader.LoadSkyColor(skyColor);
     staticShader.LoadViewMatrix(camera->GetViewMatrix());
-    staticShader.LoadLight(light->GetPosition(), light->GetColor());
+    staticShader.LoadLights(lights);
     renderer.Render(entities);
     staticShader.Stop();
     entities.clear();
     glDisable(GL_DEPTH_TEST);
 }
 
-void MasterRenderer::RenderScene(std::vector<Entity*> _entities, glm::vec4 clipPlane) {
+void MasterRenderer::RenderScene(std::vector<Entity*> _entities, std::vector<Light*> lights, glm::vec4 clipPlane) {
     for (int i = 0; i < _entities.size(); i++) {
         ProcessEntity(_entities.at(i));
     }
-    Render(clipPlane);
+    Render(lights, clipPlane);
 }
