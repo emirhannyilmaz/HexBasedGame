@@ -15,7 +15,7 @@ WaterRenderer::WaterRenderer(Camera* _camera, WaterFrameBuffers* _fbos) {
     normalMapTexture = new Texture(NORMAL_MAP, GL_RGB, GL_RGB, GL_UNSIGNED_BYTE, false, false);
 }
 
-void WaterRenderer::Render(std::vector<WaterTile*> waterTiles, Light* light) {
+void WaterRenderer::Render(std::vector<WaterTile*> waterTiles, std::vector<Light*> lights) {
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -24,7 +24,7 @@ void WaterRenderer::Render(std::vector<WaterTile*> waterTiles, Light* light) {
     moveFactor += WaterRenderer::WAVE_SPEED * Window::GetDeltaTime();
     moveFactor = fmod(moveFactor, 1.0f);
     waterShader.LoadMoveFactor(moveFactor);
-    waterShader.LoadLight(light);
+    waterShader.LoadLights(lights);
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, fbos->GetReflectionTexture()->GetId());
     glActiveTexture(GL_TEXTURE1);

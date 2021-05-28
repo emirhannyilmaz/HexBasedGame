@@ -179,7 +179,7 @@ int main() {
 		buffers.UnbindCurrentFrameBuffer();
 		masterRenderer.Clear();
 		masterRenderer.RenderScene(entities, lights, glm::vec4(0.0f, 1.0f, 0.0f, 1000000.0f));
-		waterRenderer.Render(waterTiles, &mainLight);
+		waterRenderer.Render(waterTiles, lights);
 		guiRenderer.Render(guiTextures, guiButtons);
 		textRenderer.Render(texts);
 

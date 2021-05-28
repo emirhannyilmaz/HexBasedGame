@@ -5,7 +5,7 @@ out vec4 FragColor;
 in vec4 clipSpace;
 in vec2 texCoords;
 in vec3 toCameraVector;
-in vec3 fromLightVector;
+in vec3 fromLightVector[4];
 
 uniform sampler2D reflectionTexture;
 uniform sampler2D refractionTexture;
@@ -13,7 +13,8 @@ uniform sampler2D dudvMap;
 uniform sampler2D normalMap;
 uniform sampler2D depthMap;
 uniform float moveFactor;
-uniform vec3 lightColor;
+uniform vec3 lightColor[4];
+uniform vec3 attenuation[4];
 uniform float near;
 uniform float far;
 
@@ -56,12 +57,18 @@ void main() {
     float refractiveFactor = dot(normToCameraVector, normal);
     refractiveFactor = pow(refractiveFactor, refractivity);
     
-    vec3 reflectedLight = reflect(normalize(fromLightVector), normal);
-    float specular = max(dot(reflectedLight, normToCameraVector), 0.0);
-    specular = pow(specular, shineDamper);
-    vec3 specularHighlights = lightColor * specular * reflectivity * clamp(waterDepth / 5.0, 0.0, 1.0);
+    vec3 totalSpecular = vec3(0.0);
+
+    for(int i = 0; i < 4; i++) {
+        float distance = length(fromLightVector[i]);
+        float attFactor = attenuation[i].x + (attenuation[i].y * distance) + (attenuation[i].z * distance * distance);
+        vec3 reflectedLight = reflect(normalize(fromLightVector[i]), normal);
+        float specular = max(dot(reflectedLight, normToCameraVector), 0.0);
+        specular = pow(specular, shineDamper);
+        totalSpecular = totalSpecular + ((lightColor[i] * specular * reflectivity) / attFactor) * clamp(waterDepth / 5.0, 0.0, 1.0);
+    }
 
     FragColor = mix(reflectionColor, refractionColor, refractiveFactor);
-    FragColor = mix(FragColor, vec4(0.0, 0.3, 0.5, 1.0), 0.2) + vec4(specularHighlights, 0.0);
+    FragColor = mix(FragColor, vec4(0.0, 0.3, 0.5, 1.0), 0.2) + vec4(totalSpecular, 0.0);
     FragColor.a = clamp(waterDepth / 5.0, 0.0, 1.0);
 }
