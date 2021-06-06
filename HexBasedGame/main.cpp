@@ -26,6 +26,7 @@
 #include <map>
 #include "PlayerStats.h"
 #include "Entities/Buildings/Hex.h"
+#include "Renderer/SkyboxRenderer/SkyboxRenderer.h"
 
 BuildController* buildController = NULL;
 
@@ -46,14 +47,14 @@ int main() {
 	std::map<char, Character*> characters;
 	FontLoader::LoadFont("Resources/Fonts/arial.ttf", 35, characters);
 
-	Camera camera(60.0f, 1280.0f, 720.0f, 0.1f, 500.0f, glm::vec3(0.0f, 0.0f, 0.0f), 30.0f, 0.0f, 0.0f, 80.0f, 50.0f, 110.0f, 180.0f);
-	//MasterRenderer masterRenderer(&camera, glm::vec3(72.0f / 255.0f, 219.0f / 255.0f, 251.0f / 255.0f), 0.0030f, 2.0f);
-	MasterRenderer masterRenderer(&camera, glm::vec3(44.0f / 255.0f, 62.0f / 255.0f, 80.0f / 255.0f), 0.0030f, 2.0f);
+	Camera camera(60.0f, 1280.0f, 720.0f, 0.1f, 1000.0f, glm::vec3(0.0f, 0.0f, 0.0f), 30.0f, 0.0f, 0.0f, 80.0f, 50.0f, 110.0f, 180.0f);
+	MasterRenderer masterRenderer(&camera, glm::vec3(72.0f / 255.0f, 219.0f / 255.0f, 251.0f / 255.0f), 0.0030f, 2.0f);
 	GuiRenderer guiRenderer;
 	WaterFrameBuffers buffers;
 	WaterRenderer waterRenderer(&camera, &buffers);
 	Raycast ray(&camera, 500.0f, 200, 0.50f);
 	TextRenderer textRenderer(characters);
+	SkyboxRenderer skyboxRenderer(&camera);
 
 	std::vector<glm::vec3> vertices;
 	std::vector<glm::vec2> texCoords;
@@ -167,6 +168,7 @@ int main() {
 		camera.SetPosition(glm::vec3(camera.GetPosition().x, camera.GetPosition().y - distance, camera.GetPosition().z));
 		camera.InvertPitch();
 		masterRenderer.Clear();
+		skyboxRenderer.Render();
 		masterRenderer.RenderScene(entities, lights, glm::vec4(0.0f, 1.0f, 0.0f, -waterTile.GetHeight() + 0.5f));
 		camera.SetPosition(glm::vec3(camera.GetPosition().x, camera.GetPosition().y + distance, camera.GetPosition().z));
 		camera.InvertPitch();
@@ -178,6 +180,7 @@ int main() {
 		glDisable(GL_CLIP_DISTANCE0);
 		buffers.UnbindCurrentFrameBuffer();
 		masterRenderer.Clear();
+		skyboxRenderer.Render();
 		masterRenderer.RenderScene(entities, lights, glm::vec4(0.0f, 1.0f, 0.0f, 1000000.0f));
 		waterRenderer.Render(waterTiles, lights);
 		guiRenderer.Render(guiTextures, guiButtons);

@@ -170,6 +170,7 @@
     <ClCompile Include="Physics\Collision.cpp" />
     <ClCompile Include="Physics\Raycast.cpp" />
     <ClCompile Include="PlayerStats.cpp" />
+    <ClCompile Include="Renderer\SkyboxRenderer\SkyboxRenderer.cpp" />
     <ClCompile Include="Renderer\TextRenderer\Character.cpp" />
     <ClCompile Include="Renderer\TextRenderer\FontLoader.cpp" />
     <ClCompile Include="Renderer\TextRenderer\TextRenderer.cpp" />
@@ -182,6 +183,7 @@
     <ClCompile Include="Renderer\stb_image.cpp" />
     <ClCompile Include="Renderer\WaterRenderer\WaterFrameBuffers.cpp" />
     <ClCompile Include="Renderer\WaterRenderer\WaterRenderer.cpp" />
+    <ClCompile Include="Shaders\SkyboxShader.cpp" />
     <ClCompile Include="Shaders\TextShader.cpp" />
     <ClCompile Include="Shaders\GuiShader.cpp" />
     <ClCompile Include="Shaders\ShaderProgram.cpp" />
@@ -213,6 +215,7 @@
     <ClInclude Include="Physics\Collision.h" />
     <ClInclude Include="Physics\Raycast.h" />
     <ClInclude Include="PlayerStats.h" />
+    <ClInclude Include="Renderer\SkyboxRenderer\SkyboxRenderer.h" />
     <ClInclude Include="Renderer\TextRenderer\Character.h" />
     <ClInclude Include="Renderer\TextRenderer\FontLoader.h" />
     <ClInclude Include="Renderer\TextRenderer\TextRenderer.h" />
@@ -225,6 +228,7 @@
     <ClInclude Include="Renderer\stb_image.h" />
     <ClInclude Include="Renderer\WaterRenderer\WaterFrameBuffers.h" />
     <ClInclude Include="Renderer\WaterRenderer\WaterRenderer.h" />
+    <ClInclude Include="Shaders\SkyboxShader.h" />
     <ClInclude Include="Shaders\TextShader.h" />
     <ClInclude Include="Shaders\GuiShader.h" />
     <ClInclude Include="Shaders\ShaderProgram.h" />
