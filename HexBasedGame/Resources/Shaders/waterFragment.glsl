@@ -56,6 +56,7 @@ void main() {
     vec3 normToCameraVector = normalize(toCameraVector);
     float refractiveFactor = dot(normToCameraVector, normal);
     refractiveFactor = pow(refractiveFactor, refractivity);
+    refractiveFactor = clamp(refractiveFactor, 0.0, 1.0);
     
     vec3 totalSpecular = vec3(0.0);
 
