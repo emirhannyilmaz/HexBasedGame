@@ -45,16 +45,16 @@ int main() {
 	}
 
 	std::map<char, Character*> characters;
-	FontLoader::LoadFont("Resources/Fonts/arial.ttf", 35, characters);
+	FontLoader::LoadFont("Resources/Fonts/arialbd.ttf", 20, characters);
 
-	Camera camera(60.0f, 1280.0f, 720.0f, 0.1f, 1000.0f, glm::vec3(0.0f, 0.0f, 0.0f), 30.0f, 0.0f, 0.0f, 80.0f, 80.0f, 120.0f, 180.0f);
-	MasterRenderer masterRenderer(&camera, glm::vec3(72.0f / 255.0f, 219.0f / 255.0f, 251.0f / 255.0f), 0.0030f, 2.0f);
+	Camera camera(60.0f, 1280.0f, 720.0f, 0.1f, 1000.0f, glm::vec3(0.0f, 0.0f, 0.0f), 30.0f, 0.0f, 0.0f, 100.0f, 100.0f, 180.0f, 180.0f);
+	MasterRenderer masterRenderer(&camera, glm::vec3(0.5444f, 0.62f, 0.69f), 0.0020f, 10.0f);
 	GuiRenderer guiRenderer;
 	WaterFrameBuffers buffers;
-	WaterRenderer waterRenderer(&camera, &buffers);
+	WaterRenderer waterRenderer(&camera, &buffers, glm::vec3(0.5444f, 0.62f, 0.69f), 0.0020f, 10.0f);
 	Raycast ray(&camera, 500.0f, 200, 0.50f);
 	TextRenderer textRenderer(characters);
-	SkyboxRenderer skyboxRenderer(&camera);
+	SkyboxRenderer skyboxRenderer(&camera, glm::vec3(0.5444f, 0.62f, 0.69f));
 
 	std::vector<glm::vec3> vertices;
 	std::vector<glm::vec2> texCoords;
@@ -114,23 +114,23 @@ int main() {
 	lights.push_back(&light1);
 	lights.push_back(&light2);
 
-	GuiTexture infoTexture("Resources/Textures/Info.png", GL_RGBA, GL_RGBA, GL_UNSIGNED_BYTE, glm::vec2(Window::GetWidth() / 2.0f, 30.0f), 0.0f, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec2(600.0f, 60.0f), true);
-	GuiTexture hexInfoTexture("Resources/Textures/HexInfo.png", GL_RGBA, GL_RGBA, GL_UNSIGNED_BYTE, glm::vec2(Window::GetWidth() / 2.0f, Window::GetHeight() - 30.0f), 0.0f, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec2(600.0f, 60.0f), false);
-	GuiTexture buildMenuTexture("Resources/Textures/BuildMenu.png", GL_RGBA, GL_RGBA, GL_UNSIGNED_BYTE, glm::vec2(60.0f, Window::GetHeight() / 2.0f), 0.0f, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec2(120.0f, 600.0f), false);
+	GuiTexture infoTexture("Resources/Textures/Info.png", GL_RGBA, GL_RGBA, GL_UNSIGNED_BYTE, glm::vec2(Window::GetWidth() / 2.0f, 15.0f), 0.0f, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec2(300.0f, 30.0f), true);
+	GuiTexture hexInfoTexture("Resources/Textures/HexInfo.png", GL_RGBA, GL_RGBA, GL_UNSIGNED_BYTE, glm::vec2(Window::GetWidth() / 2.0f, Window::GetHeight() - 15.0f), 0.0f, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec2(300.0f, 30.0f), false);
+	GuiTexture buildMenuTexture("Resources/Textures/BuildMenu.png", GL_RGBA, GL_RGBA, GL_UNSIGNED_BYTE, glm::vec2(30.0f, Window::GetHeight() / 2.0f), 0.0f, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec2(60.0f, 300.0f), false);
 	std::vector<GuiTexture*> guiTextures;
 	guiTextures.push_back(&infoTexture);
 	guiTextures.push_back(&hexInfoTexture);
 	guiTextures.push_back(&buildMenuTexture);
 
-	GuiButton buildTownButton("Resources/Textures/BuildHouseButton.png", GL_RGBA, GL_RGBA, GL_UNSIGNED_BYTE, glm::vec2(60.0f, Window::GetHeight() / 2.0f + 55.0f), 0.0f, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec2(100.0f, 100.0f), false, BuildTownButtonClick);
-	GuiButton buildSawmillButton("Resources/Textures/BuildSawmillButton.png", GL_RGBA, GL_RGBA, GL_UNSIGNED_BYTE, glm::vec2(60.0f, Window::GetHeight() / 2.0f - 55.0f), 0.0f, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec2(100.0f, 100.0f), false, BuildSawmillButtonClick);
+	GuiButton buildTownButton("Resources/Textures/BuildHouseButton.png", GL_RGBA, GL_RGBA, GL_UNSIGNED_BYTE, glm::vec2(30.0f, Window::GetHeight() / 2.0f + 27.5f), 0.0f, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec2(50.0f, 50.0f), false, BuildTownButtonClick);
+	GuiButton buildSawmillButton("Resources/Textures/BuildSawmillButton.png", GL_RGBA, GL_RGBA, GL_UNSIGNED_BYTE, glm::vec2(30.0f, Window::GetHeight() / 2.0f - 27.5f), 0.0f, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec2(50.0f, 50.0f), false, BuildSawmillButtonClick);
 	std::vector<GuiButton*> guiButtons;
 	guiButtons.push_back(&buildTownButton);
 	guiButtons.push_back(&buildSawmillButton);
 
-	Text goldCountText("Gold: " + std::to_string(PlayerStats::GetGoldCount()), glm::vec2(Window::GetWidth() / 2.0f - 300.0f + 10.0f, 15.0f), glm::vec2(1.0f, 1.0f), glm::vec3(1.0f, 1.0f, 1.0f), true, false);
-	Text woodCountText("Wood: " + std::to_string(PlayerStats::GetWoodCount()), glm::vec2(Window::GetWidth() / 2.0f + 120, 15.0f), glm::vec2(1.0f, 1.0f), glm::vec3(1.0f, 1.0f, 1.0f), true, false);
-	Text hexNameText("", glm::vec2(Window::GetWidth() / 2.0f, Window::GetHeight() - 40.0f), glm::vec2(1.0f, 1.0f), glm::vec3(1.0f, 1.0f, 1.0f), false, true);
+	Text goldCountText("Gold: " + std::to_string(PlayerStats::GetGoldCount()), glm::vec2(Window::GetWidth() / 2.0f - 150.0f + 10.0f, 7.5f), glm::vec2(1.0f, 1.0f), glm::vec3(1.0f, 1.0f, 1.0f), true, false);
+	Text woodCountText("Wood: " + std::to_string(PlayerStats::GetWoodCount()), glm::vec2(Window::GetWidth() / 2.0f + 45.0f, 7.5f), glm::vec2(1.0f, 1.0f), glm::vec3(1.0f, 1.0f, 1.0f), true, false);
+	Text hexNameText("", glm::vec2(Window::GetWidth() / 2.0f, Window::GetHeight() - 22.0f), glm::vec2(1.0f, 1.0f), glm::vec3(1.0f, 1.0f, 1.0f), false, true);
 	std::vector<Text*> texts;
 	texts.push_back(&goldCountText);
 	texts.push_back(&woodCountText);
@@ -149,14 +149,14 @@ int main() {
 		}
 		for (ResourceGenerator* resourceGenerator : resourceGenerators) {
 			switch (resourceGenerator->GetResourceType()) {
-				case GOLD:
-					resourceGenerator->Update(goldCountText);
-					break;
-				case WOOD:
-					resourceGenerator->Update(woodCountText);
-					break;
-				default:
-					break;
+			case GOLD:
+				resourceGenerator->Update(goldCountText);
+				break;
+			case WOOD:
+				resourceGenerator->Update(woodCountText);
+				break;
+			default:
+				break;
 			}
 		}
 		ray.Update();

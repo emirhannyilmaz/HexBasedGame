@@ -13,6 +13,9 @@ WaterShader::WaterShader(const char* vertexShaderPath, const char* fragmentShade
 	depthMapLoc = GetUniformLocation("depthMap");
 	nearLoc = GetUniformLocation("near");
 	farLoc = GetUniformLocation("far");
+	fogDensityLoc = GetUniformLocation("fogDensity");
+	fogGradientLoc = GetUniformLocation("fogGradient");
+	skyColorLoc = GetUniformLocation("skyColor");
 
 	for (int i = 0; i < MAX_LIGHTS; i++) {
 		lightPositionLoc[i] = GetUniformLocation("lightPosition[" + std::to_string(i) + "]");
@@ -60,4 +63,16 @@ void WaterShader::LoadLights(std::vector<Light*> lights) {
 			LoadVector3f(attenuationLoc[i], glm::vec3(1.0f, 0.0f, 0.0f));
 		}
 	}
+}
+
+void WaterShader::LoadFogDensity(float density) {
+	LoadFloat(fogDensityLoc, density);
+}
+
+void WaterShader::LoadFogGradient(float gradient) {
+	LoadFloat(fogGradientLoc, gradient);
+}
+
+void WaterShader::LoadSkyColor(glm::vec3 color) {
+	LoadVector3f(skyColorLoc, color);
 }

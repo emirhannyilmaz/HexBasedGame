@@ -14,6 +14,9 @@ public:
     void ConnectTextureUnits();
     void LoadMoveFactor(float factor);
     void LoadLights(std::vector<Light*> lights);
+    void LoadFogDensity(float density);
+    void LoadFogGradient(float gradient);
+    void LoadSkyColor(glm::vec3 color);
 private:
     static const int MAX_LIGHTS = 4;
     GLint modelLoc;
@@ -31,4 +34,7 @@ private:
     GLint depthMapLoc;
     GLint nearLoc;
     GLint farLoc;
+    GLint fogDensityLoc;
+    GLint fogGradientLoc;
+    GLint skyColorLoc;
 };

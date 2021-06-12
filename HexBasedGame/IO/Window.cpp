@@ -54,7 +54,7 @@ int Window::GetHeight() {
 }
 
 float Window::GetDeltaTime() {
-    return deltaTime;
+    return (deltaTime / 1000.0f);
 }
 
 int Window::ShouldClose() {

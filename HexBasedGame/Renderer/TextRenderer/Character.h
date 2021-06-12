@@ -12,6 +12,7 @@ public:
 	glm::ivec2 GetSize();
 	glm::ivec2 GetBearing();
 	unsigned int GetAdvance();
+	~Character();
 private:
 	Texture* texture = NULL;
 	glm::ivec2 size;

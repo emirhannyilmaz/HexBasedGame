@@ -6,6 +6,7 @@ in vec4 clipSpace;
 in vec2 texCoords;
 in vec3 toCameraVector;
 in vec3 fromLightVector[4];
+in float visibility;
 
 uniform sampler2D reflectionTexture;
 uniform sampler2D refractionTexture;
@@ -17,6 +18,7 @@ uniform vec3 lightColor[4];
 uniform vec3 attenuation[4];
 uniform float near;
 uniform float far;
+uniform vec3 skyColor;
 
 const float waveStrength = 0.02;
 const float refractivity = 5.0;
@@ -71,5 +73,6 @@ void main() {
 
     FragColor = mix(reflectionColor, refractionColor, refractiveFactor);
     FragColor = mix(FragColor, vec4(0.0, 0.3, 0.5, 1.0), 0.2) + vec4(totalSpecular, 0.0);
+    FragColor = mix(vec4(skyColor, 1.0), FragColor, visibility);
     FragColor.a = clamp(waterDepth / 5.0, 0.0, 1.0);
 }

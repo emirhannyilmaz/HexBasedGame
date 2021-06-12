@@ -22,3 +22,7 @@ glm::ivec2 Character::GetBearing() {
 unsigned int Character::GetAdvance() {
 	return advance;
 }
+
+Character::~Character() {
+	delete texture;
+}

@@ -40,10 +40,12 @@ void Camera::HandleInput() {
 	if (Mouse::GetMouseButton(GLFW_MOUSE_BUTTON_LEFT)) {
 		tempPos -= direction * Mouse::GetDy() * Window::GetDeltaTime();
 		tempPos -= right * -Mouse::GetDx() * Window::GetDeltaTime();
-	} else if (Mouse::GetMouseButton(GLFW_MOUSE_BUTTON_RIGHT)) {
+	}
+	else if (Mouse::GetMouseButton(GLFW_MOUSE_BUTTON_RIGHT)) {
 		angleAround += Mouse::GetDx() * Window::GetDeltaTime();
-	} else {
-		distance -= Mouse::GetMouseWheel() * Window::GetDeltaTime();
+	}
+	else {
+		distance -= Mouse::GetMouseWheel();
 		if (distance <= minDistance) {
 			distance = minDistance;
 		}

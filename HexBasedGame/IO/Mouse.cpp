@@ -1,7 +1,7 @@
 #include "Mouse.h"
 
-float Mouse::mouseSensitivity = 0.05f;
-float Mouse::mouseWheelSensitivity = 1.0f;
+float Mouse::mouseSensitivity = 25.0f;
+float Mouse::mouseWheelSensitivity = 10.0f;
 bool Mouse::firstMouse = true;
 float Mouse::x = 0.0f;
 float Mouse::y = 0.0f;

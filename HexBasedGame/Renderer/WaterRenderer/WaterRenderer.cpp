@@ -2,14 +2,17 @@
 
 const char* WaterRenderer::DUDV_MAP = "Resources/Textures/WaterDUDV.png";
 const char* WaterRenderer::NORMAL_MAP = "Resources/Textures/NormalMap.png";
-const float WaterRenderer::WAVE_SPEED = 0.00003f;
+const float WaterRenderer::WAVE_SPEED = 0.04f;
 
-WaterRenderer::WaterRenderer(Camera* _camera, WaterFrameBuffers* _fbos) {
+WaterRenderer::WaterRenderer(Camera* _camera, WaterFrameBuffers* _fbos, glm::vec3 _skyColor, float fogDensity, float fogGradient) {
     camera = _camera;
     fbos = _fbos;
+    skyColor = _skyColor;
     waterShader.Start();
     waterShader.ConnectTextureUnits();
     waterShader.LoadProjectionMatrix(camera->GetProjectionMatrix(), camera->GetNear(), camera->GetFar());
+    waterShader.LoadFogDensity(fogDensity);
+    waterShader.LoadFogGradient(fogGradient);
     waterShader.Stop();
     waterDudvTexture = new Texture(DUDV_MAP, GL_RGB, GL_RGB, GL_UNSIGNED_BYTE, false, false);
     normalMapTexture = new Texture(NORMAL_MAP, GL_RGB, GL_RGB, GL_UNSIGNED_BYTE, false, false);
@@ -20,6 +23,7 @@ void WaterRenderer::Render(std::vector<WaterTile*> waterTiles, std::vector<Light
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     waterShader.Start();
+    waterShader.LoadSkyColor(skyColor);
     waterShader.LoadViewMatrix(camera->GetViewMatrix(), camera->GetPosition());
     moveFactor += WaterRenderer::WAVE_SPEED * Window::GetDeltaTime();
     moveFactor = fmod(moveFactor, 1.0f);

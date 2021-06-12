@@ -13,7 +13,7 @@
 
 class WaterRenderer {
 public:
-	WaterRenderer(Camera* _camera, WaterFrameBuffers* _fbos);
+	WaterRenderer(Camera* _camera, WaterFrameBuffers* _fbos, glm::vec3 _skyColor, float fogDensity, float fogGradient);
 	void Render(std::vector<WaterTile*> waterTiles, std::vector<Light*> lights);
 private:
 	WaterShader waterShader = WaterShader("Resources/Shaders/waterVertex.glsl", "Resources/Shaders/waterFragment.glsl");
@@ -34,4 +34,5 @@ private:
 	Texture* waterDudvTexture = NULL;
 	Texture* normalMapTexture = NULL;
 	float moveFactor = 0.0f;
+	glm::vec3 skyColor;
 };
