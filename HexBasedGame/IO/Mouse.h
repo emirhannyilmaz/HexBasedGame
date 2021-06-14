@@ -20,7 +20,6 @@ public:
     static float previousDy;
     static float dx;
     static float dy;
-    static float previousMouseWheel;
     static float mouseWheel;
     static GLFWwindow* window;
     static float GetX();

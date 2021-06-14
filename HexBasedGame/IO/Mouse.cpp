@@ -11,7 +11,6 @@ float Mouse::previousDx = 0.0f;
 float Mouse::previousDy = 0.0f;
 float Mouse::dx = 0.0f;
 float Mouse::dy = 0.0f;
-float Mouse::previousMouseWheel = 0.0f;
 float Mouse::mouseWheel = 0.0f;
 GLFWwindow* Mouse::window = NULL;
 
@@ -67,13 +66,10 @@ float Mouse::GetDy() {
 }
 
 float Mouse::GetMouseWheel() {
-	if (Mouse::previousMouseWheel == Mouse::mouseWheel) {
-		return 0.0f;
-	}
+	float value = Mouse::mouseWheel;
+	Mouse::mouseWheel = 0.0f;
 
-	Mouse::previousMouseWheel = Mouse::mouseWheel;
-
-	return Mouse::mouseWheel * mouseWheelSensitivity;
+	return value * mouseWheelSensitivity;
 }
 
 bool Mouse::GetMouseButton(int button) {
