@@ -77,6 +77,11 @@ int main() {
 	Hex hex9(&model, colliders, glm::vec3(-8.65f, 0.0f, -15.0f), 0.0f, glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(10.0f, 10.0f, 10.0f), "Empty");
 	Hex hex10(&model, colliders, glm::vec3(-25.95f, 0.0f, -15.0f), 0.0f, glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(10.0f, 10.0f, 10.0f), "Empty");
 	Hex hex11(&model, colliders, glm::vec3(-43.25f, 0.0f, -15.0f), 0.0f, glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(10.0f, 10.0f, 10.0f), "Empty");
+	Hex hex12(&model, colliders, glm::vec3(0.0f, 0.0f, -30.0f), 0.0f, glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(10.0f, 10.0f, 10.0f), "Empty");
+	Hex hex13(&model, colliders, glm::vec3(17.3f, 0.0f, -30.0f), 0.0f, glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(10.0f, 10.0f, 10.0f), "Empty");
+	Hex hex14(&model, colliders, glm::vec3(34.6f, 0.0f, -30.0f), 0.0f, glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(10.0f, 10.0f, 10.0f), "Empty");
+	Hex hex15(&model, colliders, glm::vec3(-17.3f, 0.0f, -30.0f), 0.0f, glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(10.0f, 10.0f, 10.0f), "Empty");
+	Hex hex16(&model, colliders, glm::vec3(-34.6f, 0.0f, -30.0f), 0.0f, glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(10.0f, 10.0f, 10.0f), "Empty");
 	std::vector<Entity*> entities;
 	entities.push_back(&hex1);
 	entities.push_back(&hex2);
@@ -89,6 +94,11 @@ int main() {
 	entities.push_back(&hex9);
 	entities.push_back(&hex10);
 	entities.push_back(&hex11);
+	entities.push_back(&hex12);
+	entities.push_back(&hex13);
+	entities.push_back(&hex14);
+	entities.push_back(&hex15);
+	entities.push_back(&hex16);
 	std::vector<Hex*> hexes;
 	hexes.push_back(&hex1);
 	hexes.push_back(&hex2);
@@ -101,6 +111,11 @@ int main() {
 	hexes.push_back(&hex9);
 	hexes.push_back(&hex10);
 	hexes.push_back(&hex11);
+	hexes.push_back(&hex12);
+	hexes.push_back(&hex13);
+	hexes.push_back(&hex14);
+	hexes.push_back(&hex15);
+	hexes.push_back(&hex16);
 
 	WaterTile waterTile(0.0f, 0.0f, 0.0f);
 	std::vector<WaterTile*> waterTiles;
