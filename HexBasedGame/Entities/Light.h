@@ -8,6 +8,7 @@ class Light {
 public:
     Light(glm::vec3 _position, glm::vec3 _color, glm::vec3 _attenuation = glm::vec3(1.0f, 0.0f, 0.0f));
     glm::vec3 GetPosition();
+    void SetPosition(glm::vec3 _position);
     glm::vec3 GetColor();
     glm::vec3 GetAttenuation();
 private:

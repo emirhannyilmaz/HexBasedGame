@@ -24,18 +24,22 @@ void ObjLoader::LoadObj(const char* filePath, std::vector<glm::vec3>& outVertice
 			fscanf(file, "%f %f %f", &vertex.x, &vertex.y, &vertex.z);
 			if (outColliders.size() != 0) {
 				outColliders.back().AddVertex(vertex);
-			} else {
+			}
+			else {
 				tempVertices.push_back(vertex);
 			}
-		} else if (strcmp(lineHeader, "vt") == 0) {
+		}
+		else if (strcmp(lineHeader, "vt") == 0) {
 			glm::vec2 texCoord;
 			fscanf(file, "%f %f", &texCoord.x, &texCoord.y);
 			tempTexCoords.push_back(texCoord);
-		} else if (strcmp(lineHeader, "vn") == 0) {
+		}
+		else if (strcmp(lineHeader, "vn") == 0) {
 			glm::vec3 normal;
 			fscanf(file, "%f %f %f", &normal.x, &normal.y, &normal.z);
 			tempNormals.push_back(normal);
-		} else if (strcmp(lineHeader, "f") == 0) {
+		}
+		else if (strcmp(lineHeader, "f") == 0) {
 			unsigned int vertexIndex[3];
 			unsigned int texCoordIndex[3];
 			unsigned int normalIndex[3];
@@ -49,7 +53,8 @@ void ObjLoader::LoadObj(const char* filePath, std::vector<glm::vec3>& outVertice
 			normalIndices.push_back(normalIndex[0]);
 			normalIndices.push_back(normalIndex[1]);
 			normalIndices.push_back(normalIndex[2]);
-		} else if (strcmp(lineHeader, "o") == 0) {
+		}
+		else if (strcmp(lineHeader, "o") == 0) {
 			char colliderName[512];
 			fscanf(file, "%s", &colliderName[0]);
 			std::string strColliderName(&colliderName[0]);
@@ -79,7 +84,7 @@ void ObjLoader::LoadObj(const char* filePath, std::vector<glm::vec3>& outVertice
 	}
 }
 
-void ObjLoader::LoadObj(const char* filePath, std::vector<glm::vec3>& outVertices, std::vector<glm::vec2>& outTexCoords, std::vector<glm::vec3>& outNormals, std::vector<GLuint>& outIndices) {
+void ObjLoader::LoadObj(const char* filePath, std::vector<glm::vec3>& outVertices, std::vector<glm::vec2>& outTexCoords, std::vector<glm::vec3>& outNormals, std::vector<GLuint>& outIndices, std::vector<Light>& outLights) {
 	std::vector<unsigned int> vertexIndices, texCoordIndices, normalIndices;
 	std::vector<glm::vec3> tempVertices;
 	std::vector<glm::vec2> tempTexCoords;
@@ -102,15 +107,18 @@ void ObjLoader::LoadObj(const char* filePath, std::vector<glm::vec3>& outVertice
 			glm::vec3 vertex;
 			fscanf(file, "%f %f %f", &vertex.x, &vertex.y, &vertex.z);
 			tempVertices.push_back(vertex);
-		} else if (strcmp(lineHeader, "vt") == 0) {
+		}
+		else if (strcmp(lineHeader, "vt") == 0) {
 			glm::vec2 texCoord;
 			fscanf(file, "%f %f", &texCoord.x, &texCoord.y);
 			tempTexCoords.push_back(texCoord);
-		} else if (strcmp(lineHeader, "vn") == 0) {
+		}
+		else if (strcmp(lineHeader, "vn") == 0) {
 			glm::vec3 normal;
 			fscanf(file, "%f %f %f", &normal.x, &normal.y, &normal.z);
 			tempNormals.push_back(normal);
-		} else if (strcmp(lineHeader, "f") == 0) {
+		}
+		else if (strcmp(lineHeader, "f") == 0) {
 			unsigned int vertexIndex[3];
 			unsigned int texCoordIndex[3];
 			unsigned int normalIndex[3];
@@ -124,6 +132,13 @@ void ObjLoader::LoadObj(const char* filePath, std::vector<glm::vec3>& outVertice
 			normalIndices.push_back(normalIndex[0]);
 			normalIndices.push_back(normalIndex[1]);
 			normalIndices.push_back(normalIndex[2]);
+		}
+		else if (strcmp(lineHeader, "l") == 0) {
+			glm::vec3 position;
+			glm::vec3 color;
+			glm::vec3 attenutation;
+			fscanf(file, "%f %f %f %f %f %f %f %f %f", &position.x, &position.y, &position.z, &color.x, &color.y, &color.z, &attenutation.x, &attenutation.y, &attenutation.z);
+			outLights.push_back(Light(position, color, attenutation));
 		}
 	}
 

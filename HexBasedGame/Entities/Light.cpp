@@ -10,6 +10,10 @@ glm::vec3 Light::GetPosition() {
     return position;
 }
 
+void Light::SetPosition(glm::vec3 _position) {
+    position = _position;
+}
+
 glm::vec3 Light::GetColor() {
     return color;
 }

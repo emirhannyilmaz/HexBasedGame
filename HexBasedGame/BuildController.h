@@ -12,12 +12,14 @@
 
 class BuildController {
 public:
-	BuildController(std::vector<Entity*>* _entities, std::vector<Hex*> _hexes, Text* _hexNameText, Text* _goldCountText, Text* _woodCountText, std::vector<ResourceGenerator*>* _resourceGenerators);
+	BuildController(std::vector<Entity*>* _entities, std::vector<Light*>* _lights, std::vector<Hex*> _hexes, Text* _hexNameText, Text* _goldCountText, Text* _woodCountText, std::vector<ResourceGenerator*>* _resourceGenerators);
 	void BuildTown();
 	void BuildSawmill();
 	~BuildController();
 private:
 	std::vector<Entity*>* entities;
+	std::vector<Light*>* lights;
+	std::vector<Light*> placedLights;
 	std::vector<Hex*> hexes;
 	std::vector<ResourceGenerator*>* resourceGenerators;
 	std::vector<House*> placedHouses;
@@ -27,4 +29,6 @@ private:
 	Text* woodCountText;
 	Model* houseModel = NULL;
 	Model* sawmillModel = NULL;
+	std::vector<Light> houseLights;
+	std::vector<Light> sawmillLights;
 };

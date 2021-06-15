@@ -6,14 +6,16 @@
 #include "../Physics/Collider.h"
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
+#include "Light.h"
 
 class Entity {
 public:
     Entity(Model* _model, std::vector<Collider> _colliders, glm::vec3 _position, float _rotationInDegrees, glm::vec3 _rotationAxis, glm::vec3 _scale, std::string _name = "Unnamed");
-    Entity(Model* _model, glm::vec3 _position, float _rotationInDegrees, glm::vec3 _rotationAxis, glm::vec3 _scale, std::string _name = "Unnamed");
+    Entity(Model* _model, std::vector<Light> _lights, glm::vec3 _position, float _rotationInDegrees, glm::vec3 _rotationAxis, glm::vec3 _scale, std::string _name = "Unnamed");
     glm::mat4 GetModelMatrix();
     Model* GetModel();
     std::vector<Collider> GetColliders();
+    std::vector<Light> GetLights();
     glm::vec3 GetPosition();
     void SetPosition(glm::vec3 _position);
     bool GetIsHighlighted();
@@ -25,6 +27,7 @@ public:
 private:
     Model* model = NULL;
     std::vector<Collider> colliders;
+    std::vector<Light> lights;
     glm::vec3 position;
     float rotationInDegrees;
     glm::vec3 rotationAxis;

@@ -12,7 +12,7 @@ StaticShader::StaticShader(const char* vertexShaderPath, const char* fragmentSha
 	fogDensityLoc = GetUniformLocation("fogDensity");
 	fogGradientLoc = GetUniformLocation("fogGradient");
 	clipPlaneLoc = GetUniformLocation("clipPlane");
-
+	numberOfLightsLoc = GetUniformLocation("numberOfLights");
 	for (int i = 0; i < MAX_LIGHTS; i++) {
 		lightPositionLoc[i] = GetUniformLocation("lightPosition[" + std::to_string(i) + "]");
 		lightColorLoc[i] = GetUniformLocation("lightColor[" + std::to_string(i) + "]");
@@ -33,16 +33,12 @@ void StaticShader::LoadProjectionMatrix(glm::mat4 matrix) {
 }
 
 void StaticShader::LoadLights(std::vector<Light*> lights) {
-	for (int i = 0; i < MAX_LIGHTS; i++) {
-		if (i < lights.size()) 	{
-			LoadVector3f(lightPositionLoc[i], lights.at(i)->GetPosition());
-			LoadVector3f(lightColorLoc[i], lights.at(i)->GetColor());
-			LoadVector3f(attenuationLoc[i], lights.at(i)->GetAttenuation());
-		} else {
-			LoadVector3f(lightPositionLoc[i], glm::vec3(0.0f, 0.0f, 0.0f));
-			LoadVector3f(lightColorLoc[i], glm::vec3(0.0f, 0.0f, 0.0f));
-			LoadVector3f(attenuationLoc[i], glm::vec3(1.0f, 0.0f, 0.0f));
-		}
+	LoadInt(numberOfLightsLoc, lights.size());
+
+	for (int i = 0; i < lights.size(); i++) {
+		LoadVector3f(lightPositionLoc[i], lights.at(i)->GetPosition());
+		LoadVector3f(lightColorLoc[i], lights.at(i)->GetColor());
+		LoadVector3f(attenuationLoc[i], lights.at(i)->GetAttenuation());
 	}
 }
 

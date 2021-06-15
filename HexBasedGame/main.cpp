@@ -107,12 +107,8 @@ int main() {
 	waterTiles.push_back(&waterTile);
 
 	Light mainLight(glm::vec3(5000.0f, 5000.0f, -5000.0f), glm::vec3(1.0f, 1.0f, 1.0f));
-	Light light1(glm::vec3(0.0f, 5.0f, 0.0f), glm::vec3(2.0f, 0.0f, 0.0f), glm::vec3(1.0f, 0.01f, 0.002f));
-	Light light2(glm::vec3(34.6f, 5.0f, 0.0f), glm::vec3(0.0f, 2.0f, 0.0f), glm::vec3(1.0f, 0.01f, 0.002f));
 	std::vector<Light*> lights;
 	lights.push_back(&mainLight);
-	lights.push_back(&light1);
-	lights.push_back(&light2);
 
 	GuiTexture infoTexture("Resources/Textures/Info.png", GL_RGBA, GL_RGBA, GL_UNSIGNED_BYTE, glm::vec2(Window::GetWidth() / 2.0f, 15.0f), 0.0f, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec2(300.0f, 30.0f), true);
 	GuiTexture hexInfoTexture("Resources/Textures/HexInfo.png", GL_RGBA, GL_RGBA, GL_UNSIGNED_BYTE, glm::vec2(Window::GetWidth() / 2.0f, Window::GetHeight() - 15.0f), 0.0f, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec2(300.0f, 30.0f), false);
@@ -138,7 +134,7 @@ int main() {
 
 	std::vector<ResourceGenerator*> resourceGenerators;
 
-	buildController = new BuildController(&entities, hexes, &hexNameText, &goldCountText, &woodCountText, &resourceGenerators);
+	buildController = new BuildController(&entities, &lights, hexes, &hexNameText, &goldCountText, &woodCountText, &resourceGenerators);
 
 	while (!window.ShouldClose()) {
 		window.CalculateDeltaTime();

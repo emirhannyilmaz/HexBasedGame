@@ -20,7 +20,7 @@ public:
     void LoadFogGradient(float gradient);
     void LoadClipPlane(glm::vec4 clipPlane);
 private:
-    static const int MAX_LIGHTS = 4;
+    static const int MAX_LIGHTS = 11;
     GLint modelLoc;
     GLint viewLoc;
     GLint projectionLoc;
@@ -35,4 +35,5 @@ private:
     GLint fogDensityLoc;
     GLint fogGradientLoc;
     GLint clipPlaneLoc;
+    GLint numberOfLightsLoc;
 };
