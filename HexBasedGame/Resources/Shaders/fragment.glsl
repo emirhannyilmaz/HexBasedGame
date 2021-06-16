@@ -45,9 +45,10 @@ void main() {
     
     if (isHighlighted == 1.0) {
         FragColor = texture(tex, passTexCoords);
-        FragColor = mix(FragColor, vec4(1.0, 1.0, 1.0, 1.0), 0.4);
+        FragColor = mix(FragColor, vec4(1.0, 1.0, 1.0, 1.0), 0.2);
     } else if (isSelected == 1.0) {
         FragColor = texture(tex, passTexCoords);
+        FragColor = mix(FragColor, vec4(1.0, 1.0, 1.0, 1.0), 0.4);
     } else {
         FragColor = vec4(totalDiffuse, 1.0) * texture(tex, passTexCoords) + vec4(totalSpecular, 1.0);
         FragColor = mix(vec4(skyColor, 1.0), FragColor, visibility);
