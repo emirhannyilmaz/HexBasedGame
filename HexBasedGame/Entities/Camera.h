@@ -8,7 +8,7 @@
 
 class Camera {
 public:
-    Camera(float fov, float width, float height, float _near, float _far, glm::vec3 _position, float _pitch, float _yaw, float _roll, float _distance, float _minDistance, float _maxDistance, float _angleAround);
+    Camera(float fov, int width, int height, float _near, float _far, glm::vec3 _position, float _pitch, float _yaw, float _roll, float _distance, float _minDistance, float _maxDistance, float _angleAround);
     glm::mat4 GetViewMatrix();
     glm::mat4 GetProjectionMatrix();
     float GetNear();

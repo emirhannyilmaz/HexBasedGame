@@ -40,14 +40,14 @@ void BuildSawmillButtonClick() {
 
 int main() {
 	Window window;
-	if (window.CreateWindow(1280, 720, "Hex Based Game") == -1) {
+	if (window.CreateWindow(1920, 1080, "Hex Based Game") == -1) {
 		return -1;
 	}
 
 	std::map<char, Character*> characters;
 	FontLoader::LoadFont("Resources/Fonts/arialbd.ttf", 20, characters);
 
-	Camera camera(60.0f, 1280.0f, 720.0f, 0.1f, 1000.0f, glm::vec3(0.0f, 0.0f, 0.0f), 30.0f, 0.0f, 0.0f, 100.0f, 100.0f, 180.0f, 180.0f);
+	Camera camera(60.0f, 1920, 1080, 0.1f, 1000.0f, glm::vec3(0.0f, 0.0f, 0.0f), 30.0f, 0.0f, 0.0f, 100.0f, 100.0f, 180.0f, 180.0f);
 	MasterRenderer masterRenderer(&camera, glm::vec3(0.5444f, 0.62f, 0.69f), 0.0020f, 10.0f);
 	GuiRenderer guiRenderer;
 	WaterFrameBuffers buffers;

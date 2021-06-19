@@ -1,9 +1,9 @@
 #include "WaterFrameBuffers.h"
 
-int WaterFrameBuffers::REFLECTION_WIDTH = 1280 / 4;
-int WaterFrameBuffers::REFLECTION_HEIGHT = 720 / 4;
-int WaterFrameBuffers::REFRACTION_WIDTH = 1280;
-int WaterFrameBuffers::REFRACTION_HEIGHT = 720;
+int WaterFrameBuffers::REFLECTION_WIDTH = 1920 / 4;
+int WaterFrameBuffers::REFLECTION_HEIGHT = 1080 / 4;
+int WaterFrameBuffers::REFRACTION_WIDTH = 1920;
+int WaterFrameBuffers::REFRACTION_HEIGHT = 1080;
 
 WaterFrameBuffers::WaterFrameBuffers() {
     InitializeReflectionFrameBuffer();

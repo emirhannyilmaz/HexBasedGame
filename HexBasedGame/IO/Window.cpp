@@ -16,7 +16,7 @@ int Window::CreateWindow(int width, int height, const char* _title) {
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
     
-    window = glfwCreateWindow(width, height, _title, NULL, NULL);
+    window = glfwCreateWindow(width, height, _title, glfwGetPrimaryMonitor(), NULL);
 
     Window::width = width;
     Window::height = height;
@@ -72,6 +72,10 @@ void Window::CalculateDeltaTime() {
 }
 
 void Window::DoStuff() {
+    if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
+        glfwSetWindowShouldClose(window, GL_TRUE);
+    }
+
     glfwSwapBuffers(window);
     glfwPollEvents();
 

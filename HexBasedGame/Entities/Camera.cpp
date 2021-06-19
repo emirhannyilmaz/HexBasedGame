@@ -1,6 +1,6 @@
 #include "Camera.h"
 
-Camera::Camera(float fov, float width, float height, float _near, float _far, glm::vec3 _position, float _pitch, float _yaw, float _roll, float _distance, float _minDistance, float _maxDistance, float _angleAround) {
+Camera::Camera(float fov, int width, int height, float _near, float _far, glm::vec3 _position, float _pitch, float _yaw, float _roll, float _distance, float _minDistance, float _maxDistance, float _angleAround) {
 	position = _position;
 	pitch = _pitch;
 	yaw = _yaw;
@@ -9,7 +9,7 @@ Camera::Camera(float fov, float width, float height, float _near, float _far, gl
 	minDistance = _minDistance;
 	maxDistance = _maxDistance;
 	angleAround = _angleAround;
-	projection = glm::perspective(glm::radians(fov), width / height, _near, _far);
+	projection = glm::perspective(glm::radians(fov), (float) width / (float) height, _near, _far);
 	near = _near;
 	far = _far;
 }
