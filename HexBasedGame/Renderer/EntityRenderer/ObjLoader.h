@@ -13,4 +13,5 @@ class ObjLoader {
 public:
     static void LoadObj(const char* filePath, std::vector<glm::vec3>& outVertices, std::vector<glm::vec2>& outTexCoords, std::vector<glm::vec3>& outNormals, std::vector<GLuint>& outIndices, std::vector<Collider>& outColliders);
     static void LoadObj(const char* filePath, std::vector<glm::vec3>& outVertices, std::vector<glm::vec2>& outTexCoords, std::vector<glm::vec3>& outNormals, std::vector<GLuint>& outIndices, std::vector<Light>& outLights);
+    static void LoadObj(const char* filePath, std::vector<glm::vec3>& outVertices, std::vector<glm::vec2>& outTexCoords, std::vector<glm::vec3>& outNormals, std::vector<GLuint>& outIndices);
 };

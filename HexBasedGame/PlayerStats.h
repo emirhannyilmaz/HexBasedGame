@@ -2,11 +2,8 @@
 
 class PlayerStats {
 public:
-	static int GetGoldCount();
-	static void SetGoldCount(int value);
-	static int GetWoodCount();
-	static void SetWoodCount(int value);
+	static int GetMoney();
+	static void SetMoney(int value);
 private:
-	static int goldCount;
-	static int woodCount;
+	static int money;
 };

@@ -34,6 +34,15 @@ Entity::Entity(Model* _model, std::vector<Light> _lights, glm::vec3 _position, f
 	}
 }
 
+Entity::Entity(Model* _model, glm::vec3 _position, float _rotationInDegrees, glm::vec3 _rotationAxis, glm::vec3 _scale, std::string _name) {
+	model = _model;
+	position = _position;
+	rotationInDegrees = _rotationInDegrees;
+	rotationAxis = _rotationAxis;
+	scale = _scale;
+	name = _name;
+}
+
 glm::mat4 Entity::GetModelMatrix() {
 	modelMatrix = glm::translate(identityMatrix, position);
 	if (rotationAxis != glm::vec3(0.0f, 0.0f, 0.0f)) {

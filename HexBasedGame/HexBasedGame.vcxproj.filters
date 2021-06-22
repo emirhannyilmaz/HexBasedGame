@@ -129,22 +129,22 @@
     <ClCompile Include="PlayerStats.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Entities\Buildings\House.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Entities\Buildings\Hex.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Entities\ResourceGenerator.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Entities\Buildings\Sawmill.cpp">
+    <ClCompile Include="Entities\Property.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Shaders\SkyboxShader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Renderer\SkyboxRenderer\SkyboxRenderer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Entities\Buildings\Hotel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Entities\Buildings\Concrete.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -260,22 +260,22 @@
     <ClInclude Include="PlayerStats.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Entities\Buildings\House.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Entities\Buildings\Hex.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Entities\ResourceGenerator.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Entities\Buildings\Sawmill.h">
+    <ClInclude Include="Entities\Property.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Shaders\SkyboxShader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Renderer\SkyboxRenderer\SkyboxRenderer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Entities\Buildings\Hotel.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Entities\Buildings\Concrete.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

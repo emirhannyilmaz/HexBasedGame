@@ -12,6 +12,7 @@ class Entity {
 public:
     Entity(Model* _model, std::vector<Collider> _colliders, glm::vec3 _position, float _rotationInDegrees, glm::vec3 _rotationAxis, glm::vec3 _scale, std::string _name = "Unnamed");
     Entity(Model* _model, std::vector<Light> _lights, glm::vec3 _position, float _rotationInDegrees, glm::vec3 _rotationAxis, glm::vec3 _scale, std::string _name = "Unnamed");
+    Entity(Model* _model, glm::vec3 _position, float _rotationInDegrees, glm::vec3 _rotationAxis, glm::vec3 _scale, std::string _name = "Unnamed");
     glm::mat4 GetModelMatrix();
     Model* GetModel();
     std::vector<Collider> GetColliders();

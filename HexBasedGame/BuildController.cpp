@@ -1,37 +1,36 @@
 #include "BuildController.h"
 
-BuildController::BuildController(std::vector<Entity*>* _entities, std::vector<Light*>* _lights, std::vector<Hex*> _hexes, Text* _hexNameText, Text* _goldCountText, Text* _woodCountText, std::vector<ResourceGenerator*>* _resourceGenerators) {
+BuildController::BuildController(std::vector<Entity*>* _entities, std::vector<Light*>* _lights, std::vector<Hex*> _hexes, Text* _hexNameText, Text* _moneyText, std::vector<Property*>* _properties) {
 	entities = _entities;
 	lights = _lights;
 	hexes = _hexes;
-	resourceGenerators = _resourceGenerators;
 	hexNameText = _hexNameText;
-	goldCountText = _goldCountText;
-	woodCountText = _woodCountText;
+	moneyText = _moneyText;
+	properties = _properties;
 
 	std::vector<glm::vec3> vertices;
 	std::vector<glm::vec2> texCoords;
 	std::vector<glm::vec3> normals;
 	std::vector<GLuint> indices;
 
-	ObjLoader::LoadObj("Resources/Models/House.obj", vertices, texCoords, normals, indices, houseLights);
-	Mesh* houseMesh = new Mesh(vertices, texCoords, normals, indices);
-	Material* houseMaterial = new Material("Resources/Textures/House.png", GL_RGB, GL_RGB, GL_UNSIGNED_BYTE, true, 1.0f, 0.5f);
-	houseModel = new Model(houseMesh, houseMaterial);
+	ObjLoader::LoadObj("Resources/Models/Concrete.obj", vertices, texCoords, normals, indices);
+	Mesh* concreteMesh = new Mesh(vertices, texCoords, normals, indices);
+	Material* concreteMaterial = new Material("Resources/Textures/Palette.png", GL_RGB, GL_RGB, GL_UNSIGNED_BYTE, true, 1.0f, 0.1f);
+	concreteModel = new Model(concreteMesh, concreteMaterial);
 
 	vertices.clear();
 	texCoords.clear();
 	normals.clear();
 	indices.clear();
 
-	ObjLoader::LoadObj("Resources/Models/Sawmill.obj", vertices, texCoords, normals, indices, sawmillLights);
-	Mesh* sawmillMesh = new Mesh(vertices, texCoords, normals, indices);
-	Material* sawmillMaterial = new Material("Resources/Textures/Sawmill.png", GL_RGB, GL_RGB, GL_UNSIGNED_BYTE, true, 1.0f, 0.5f);
-	sawmillModel = new Model(sawmillMesh, sawmillMaterial);
+	ObjLoader::LoadObj("Resources/Models/Hotel.obj", vertices, texCoords, normals, indices, hotelLights);
+	Mesh* hotelMesh = new Mesh(vertices, texCoords, normals, indices);
+	Material* hotelMaterial = new Material("Resources/Textures/Palette.png", GL_RGB, GL_RGB, GL_UNSIGNED_BYTE, true, 1.0f, 0.5f);
+	hotelModel = new Model(hotelMesh, hotelMaterial);
 }
 
-void BuildController::BuildTown() {
-	if (PlayerStats::GetWoodCount() < 200) {
+void BuildController::BuildHotel() {
+	if (PlayerStats::GetMoney() < 250) {
 		return;
 	}
 
@@ -39,62 +38,39 @@ void BuildController::BuildTown() {
 		if (!hexes.at(i)->GetIsSelected()) {
 			continue;
 		}
+		Concrete* concrete = new Concrete(concreteModel, glm::vec3(hexes.at(i)->GetPosition().x, hexes.at(i)->GetPosition().y + 1.0f, hexes.at(i)->GetPosition().z), 0.0f, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(10.0f, 10.0f, 10.0f));
+		entities->push_back(concrete);
+		placedConcretes.push_back(concrete);
 		float rotation = rand() % 360;
-		House* house = new House(houseModel, houseLights, glm::vec3(hexes.at(i)->GetPosition().x, hexes.at(i)->GetPosition().y + 1.0f, hexes.at(i)->GetPosition().z), rotation, glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(1.5f, 1.5f, 1.5f));
-		entities->push_back(house);
-		for (int i = 0; i < house->GetLights().size(); i++) {
-			Light* light = new Light(house->GetLights().at(i).GetPosition(), house->GetLights().at(i).GetColor(), house->GetLights().at(i).GetAttenuation());
+		Hotel* hotel = new Hotel(hotelModel, hotelLights, glm::vec3(hexes.at(i)->GetPosition().x, hexes.at(i)->GetPosition().y + 1.0f + 0.2f, hexes.at(i)->GetPosition().z), rotation, glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(10.0f, 10.0f, 10.0f), 50, 25);
+		entities->push_back(hotel);
+		for (int i = 0; i < hotel->GetLights().size(); i++) {
+			Light* light = new Light(hotel->GetLights().at(i).GetPosition(), hotel->GetLights().at(i).GetColor(), hotel->GetLights().at(i).GetAttenuation());
 			lights->push_back(light);
 			placedLights.push_back(light);
 		}
-		placedHouses.push_back(house);
-		resourceGenerators->push_back(house);
-		hexNameText->SetText("House");
-		hexes.at(i)->SetName("House");
-		PlayerStats::SetWoodCount(PlayerStats::GetWoodCount() - 200);
-		woodCountText->SetText("Wood: " + std::to_string(PlayerStats::GetWoodCount()));
-	}
-}
-
-void BuildController::BuildSawmill() {
-	if (PlayerStats::GetGoldCount() < 250) {
-		return;
-	}
-
-	for (int i = 0; i < hexes.size(); i++) {
-		if (!hexes.at(i)->GetIsSelected()) {
-			continue;
-		}
-		float rotation = rand() % 360;
-		Sawmill* sawmill = new Sawmill(sawmillModel, sawmillLights, glm::vec3(hexes.at(i)->GetPosition().x, hexes.at(i)->GetPosition().y + 1.0f, hexes.at(i)->GetPosition().z), rotation, glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(1.5f, 1.5f, 1.5f));
-		entities->push_back(sawmill);
-		for (int i = 0; i < sawmill->GetLights().size(); i++) {
-			Light* light = new Light(sawmill->GetLights().at(i).GetPosition(), sawmill->GetLights().at(i).GetColor(), sawmill->GetLights().at(i).GetAttenuation());
-			lights->push_back(light);
-			placedLights.push_back(light);
-		}
-		placedSawmills.push_back(sawmill);
-		resourceGenerators->push_back(sawmill);
-		hexNameText->SetText("Sawmill");
-		hexes.at(i)->SetName("Sawmill");
-		PlayerStats::SetGoldCount(PlayerStats::GetGoldCount() - 250);
-		goldCountText->SetText("Gold: " + std::to_string(PlayerStats::GetGoldCount()));
+		placedHotels.push_back(hotel);
+		properties->push_back(hotel);
+		hexNameText->SetText("Hotel");
+		hexes.at(i)->SetName("Hotel");
+		PlayerStats::SetMoney(PlayerStats::GetMoney() - 250);
+		moneyText->SetText("Money: " + std::to_string(PlayerStats::GetMoney()));
 	}
 }
 
 BuildController::~BuildController() {
-	delete houseModel->GetMesh();
-	delete houseModel->GetMaterial();
-	delete houseModel;
-	for (int i = 0; i < placedHouses.size(); i++) {
-		delete placedHouses.at(i);
+	delete concreteModel->GetMesh();
+	delete concreteModel->GetMaterial();
+	delete concreteModel;
+	for (int i = 0; i < placedConcretes.size(); i++) {
+		delete placedConcretes.at(i);
 	}
 
-	delete sawmillModel->GetMesh();
-	delete sawmillModel->GetMaterial();
-	delete sawmillModel;
-	for (int i = 0; i < placedSawmills.size(); i++) {
-		delete placedSawmills.at(i);
+	delete hotelModel->GetMesh();
+	delete hotelModel->GetMaterial();
+	delete hotelModel;
+	for (int i = 0; i < placedHotels.size(); i++) {
+		delete placedHotels.at(i);
 	}
 
 	for (int i = 0; i < placedLights.size(); i++) {

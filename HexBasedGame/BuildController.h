@@ -6,29 +6,27 @@
 #include <vector>
 #include "Entities/Text.h"
 #include "PlayerStats.h"
-#include "Entities/Buildings/House.h"
-#include "Entities/Buildings/Sawmill.h"
 #include "Entities/Buildings/Hex.h"
+#include "Entities/Buildings/Hotel.h"
+#include "Entities/Buildings/Concrete.h"
+#include "Entities/Property.h"
 
 class BuildController {
 public:
-	BuildController(std::vector<Entity*>* _entities, std::vector<Light*>* _lights, std::vector<Hex*> _hexes, Text* _hexNameText, Text* _goldCountText, Text* _woodCountText, std::vector<ResourceGenerator*>* _resourceGenerators);
-	void BuildTown();
-	void BuildSawmill();
+	BuildController(std::vector<Entity*>* _entities, std::vector<Light*>* _lights, std::vector<Hex*> _hexes, Text* _hexNameText, Text* _moneyText, std::vector<Property*>* _properties);
+	void BuildHotel();
 	~BuildController();
 private:
 	std::vector<Entity*>* entities;
 	std::vector<Light*>* lights;
 	std::vector<Light*> placedLights;
 	std::vector<Hex*> hexes;
-	std::vector<ResourceGenerator*>* resourceGenerators;
-	std::vector<House*> placedHouses;
-	std::vector<Sawmill*> placedSawmills;
+	std::vector<Concrete*> placedConcretes;
+	std::vector<Hotel*> placedHotels;
 	Text* hexNameText;
-	Text* goldCountText;
-	Text* woodCountText;
-	Model* houseModel = NULL;
-	Model* sawmillModel = NULL;
-	std::vector<Light> houseLights;
-	std::vector<Light> sawmillLights;
+	Text* moneyText;
+	std::vector<Property*>* properties;
+	Model* hotelModel = NULL;
+	Model* concreteModel = NULL;
+	std::vector<Light> hotelLights;
 };

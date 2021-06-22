@@ -146,12 +146,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="BuildController.cpp" />
+    <ClCompile Include="Entities\Buildings\Concrete.cpp" />
     <ClCompile Include="Entities\Buildings\Hex.cpp" />
-    <ClCompile Include="Entities\Buildings\Sawmill.cpp" />
-    <ClCompile Include="Entities\Buildings\House.cpp" />
+    <ClCompile Include="Entities\Buildings\Hotel.cpp" />
     <ClCompile Include="Entities\Camera.cpp" />
     <ClCompile Include="Entities\Entity.cpp" />
-    <ClCompile Include="Entities\ResourceGenerator.cpp" />
+    <ClCompile Include="Entities\Property.cpp" />
     <ClCompile Include="Entities\GuiButton.cpp" />
     <ClCompile Include="Entities\GuiTexture.cpp" />
     <ClCompile Include="Entities\Light.cpp" />
@@ -192,12 +192,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BuildController.h" />
+    <ClInclude Include="Entities\Buildings\Concrete.h" />
     <ClInclude Include="Entities\Buildings\Hex.h" />
-    <ClInclude Include="Entities\Buildings\Sawmill.h" />
-    <ClInclude Include="Entities\Buildings\House.h" />
+    <ClInclude Include="Entities\Buildings\Hotel.h" />
     <ClInclude Include="Entities\Camera.h" />
     <ClInclude Include="Entities\Entity.h" />
-    <ClInclude Include="Entities\ResourceGenerator.h" />
+    <ClInclude Include="Entities\Property.h" />
     <ClInclude Include="Entities\GuiButton.h" />
     <ClInclude Include="Entities\GuiTexture.h" />
     <ClInclude Include="Entities\Light.h" />

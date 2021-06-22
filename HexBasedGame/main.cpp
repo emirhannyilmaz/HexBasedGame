@@ -1,5 +1,4 @@
 #include <iostream>
-#include <GL/glew.h>
 #include "IO/Window.h"
 #include "Renderer/EntityRenderer/MasterRenderer.h"
 #include <vector>
@@ -24,18 +23,14 @@
 #include "Renderer/TextRenderer/FontLoader.h"
 #include "Renderer/TextRenderer/Character.h"
 #include <map>
-#include "PlayerStats.h"
-#include "Entities/Buildings/Hex.h"
 #include "Renderer/SkyboxRenderer/SkyboxRenderer.h"
+#include "Entities/Buildings/Hex.h"
+#include "Entities/Buildings/Hotel.h"
 
 BuildController* buildController = NULL;
 
-void BuildTownButtonClick() {
-	buildController->BuildTown();
-}
-
-void BuildSawmillButtonClick() {
-	buildController->BuildSawmill();
+void BuildHotelButtonClick() {
+	buildController->BuildHotel();
 }
 
 int main() {
@@ -133,23 +128,19 @@ int main() {
 	guiTextures.push_back(&hexInfoTexture);
 	guiTextures.push_back(&buildMenuTexture);
 
-	GuiButton buildTownButton("Resources/Textures/BuildHouseButton.png", GL_RGBA, GL_RGBA, GL_UNSIGNED_BYTE, glm::vec2(30.0f, Window::GetHeight() / 2.0f + 27.5f), 0.0f, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec2(50.0f, 50.0f), false, BuildTownButtonClick);
-	GuiButton buildSawmillButton("Resources/Textures/BuildSawmillButton.png", GL_RGBA, GL_RGBA, GL_UNSIGNED_BYTE, glm::vec2(30.0f, Window::GetHeight() / 2.0f - 27.5f), 0.0f, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec2(50.0f, 50.0f), false, BuildSawmillButtonClick);
+	GuiButton buildHotelButton("Resources/Textures/BuildHotelButton.png", GL_RGBA, GL_RGBA, GL_UNSIGNED_BYTE, glm::vec2(30.0f, Window::GetHeight() / 2.0f), 0.0f, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec2(50.0f, 50.0f), false, BuildHotelButtonClick);
 	std::vector<GuiButton*> guiButtons;
-	guiButtons.push_back(&buildTownButton);
-	guiButtons.push_back(&buildSawmillButton);
+	guiButtons.push_back(&buildHotelButton);
 
-	Text goldCountText("Gold: " + std::to_string(PlayerStats::GetGoldCount()), glm::vec2(Window::GetWidth() / 2.0f - 150.0f + 10.0f, 7.5f), glm::vec2(1.0f, 1.0f), glm::vec3(1.0f, 1.0f, 1.0f), true, false);
-	Text woodCountText("Wood: " + std::to_string(PlayerStats::GetWoodCount()), glm::vec2(Window::GetWidth() / 2.0f + 45.0f, 7.5f), glm::vec2(1.0f, 1.0f), glm::vec3(1.0f, 1.0f, 1.0f), true, false);
+	Text moneyText("Money: " + std::to_string(PlayerStats::GetMoney()), glm::vec2(Window::GetWidth() / 2.0f, 7.5f), glm::vec2(1.0f, 1.0f), glm::vec3(1.0f, 1.0f, 1.0f), true, true);
 	Text hexNameText("", glm::vec2(Window::GetWidth() / 2.0f, Window::GetHeight() - 22.0f), glm::vec2(1.0f, 1.0f), glm::vec3(1.0f, 1.0f, 1.0f), false, true);
 	std::vector<Text*> texts;
-	texts.push_back(&goldCountText);
-	texts.push_back(&woodCountText);
+	texts.push_back(&moneyText);
 	texts.push_back(&hexNameText);
 
-	std::vector<ResourceGenerator*> resourceGenerators;
+	std::vector<Property*> properties;
 
-	buildController = new BuildController(&entities, &lights, hexes, &hexNameText, &goldCountText, &woodCountText, &resourceGenerators);
+	buildController = new BuildController(&entities, &lights, hexes, &hexNameText, &moneyText, &properties);
 
 	while (!window.ShouldClose()) {
 		window.CalculateDeltaTime();
@@ -158,17 +149,8 @@ int main() {
 		for (GuiButton* guiButton : guiButtons) {
 			guiButton->HandleMouse();
 		}
-		for (ResourceGenerator* resourceGenerator : resourceGenerators) {
-			switch (resourceGenerator->GetResourceType()) {
-			case GOLD:
-				resourceGenerator->Update(goldCountText);
-				break;
-			case WOOD:
-				resourceGenerator->Update(woodCountText);
-				break;
-			default:
-				break;
-			}
+		for (Property* prop : properties) {
+			prop->Update(moneyText);
 		}
 		ray.Update();
 		ray.CheckForCollisions(entities, &buildMenuTexture, guiButtons, &hexInfoTexture, &hexNameText);

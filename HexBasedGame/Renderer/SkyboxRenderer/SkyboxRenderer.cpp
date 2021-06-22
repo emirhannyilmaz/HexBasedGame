@@ -22,30 +22,30 @@ void SkyboxRenderer::Render() {
 }
 
 void SkyboxRenderer::BindTextures() {
-	time += Window::GetDeltaTime() * 100.0f;
+	time += Window::GetDeltaTime() * 500.0f;
 	time = fmod(time, 24000.0f);
 	GLuint texture1;
 	GLuint texture2;
 	float blendFactor;
-	if (time >= 0 && time < 5000) {
+	if (time >= 0.0f && time < 5000.0f) {
 		texture1 = nightTexture.GetId();
 		texture2 = nightTexture.GetId();
-		blendFactor = (time - 0) / (5000 - 0);
+		blendFactor = (time - 0.0f) / (5000.0f - 0.0f);
 	}
-	else if (time >= 5000 && time < 8000) {
+	else if (time >= 5000.0f && time < 8000.0f) {
 		texture1 = nightTexture.GetId();
 		texture2 = texture.GetId();
-		blendFactor = (time - 5000) / (8000 - 5000);
+		blendFactor = (time - 5000.0f) / (8000.0f - 5000.0f);
 	}
-	else if (time >= 8000 && time < 21000) {
+	else if (time >= 8000.0f && time < 21000.0f) {
 		texture1 = texture.GetId();
 		texture2 = texture.GetId();
-		blendFactor = (time - 8000) / (21000 - 8000);
+		blendFactor = (time - 8000.0f) / (21000.0f - 8000.0f);
 	}
 	else {
 		texture1 = texture.GetId();
 		texture2 = nightTexture.GetId();
-		blendFactor = (time - 21000) / (24000 - 21000);
+		blendFactor = (time - 21000.0f) / (24000.0f - 21000.0f);
 	}
 
 	glActiveTexture(GL_TEXTURE0);
