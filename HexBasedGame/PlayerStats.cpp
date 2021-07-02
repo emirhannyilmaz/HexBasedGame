@@ -1,6 +1,6 @@
 #include "PlayerStats.h"
 
-int PlayerStats::money = 500;
+int PlayerStats::money = 2000;
 
 int PlayerStats::GetMoney() {
 	return money;

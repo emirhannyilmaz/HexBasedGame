@@ -146,6 +146,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="BuildController.cpp" />
+    <ClCompile Include="Entities\Buildings\Apartment.cpp" />
     <ClCompile Include="Entities\Buildings\Concrete.cpp" />
     <ClCompile Include="Entities\Buildings\Hex.cpp" />
     <ClCompile Include="Entities\Buildings\Hotel.cpp" />
@@ -155,6 +156,7 @@
     <ClCompile Include="Entities\GuiButton.cpp" />
     <ClCompile Include="Entities\GuiTexture.cpp" />
     <ClCompile Include="Entities\Light.cpp" />
+    <ClCompile Include="Entities\SaleableProperty.cpp" />
     <ClCompile Include="Entities\Text.cpp" />
     <ClCompile Include="Entities\WaterTile.cpp" />
     <ClCompile Include="IO\Mouse.cpp" />
@@ -192,6 +194,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BuildController.h" />
+    <ClInclude Include="Entities\Buildings\Apartment.h" />
     <ClInclude Include="Entities\Buildings\Concrete.h" />
     <ClInclude Include="Entities\Buildings\Hex.h" />
     <ClInclude Include="Entities\Buildings\Hotel.h" />
@@ -201,6 +204,7 @@
     <ClInclude Include="Entities\GuiButton.h" />
     <ClInclude Include="Entities\GuiTexture.h" />
     <ClInclude Include="Entities\Light.h" />
+    <ClInclude Include="Entities\SaleableProperty.h" />
     <ClInclude Include="Entities\Text.h" />
     <ClInclude Include="Entities\WaterTile.h" />
     <ClInclude Include="IO\Mouse.h" />

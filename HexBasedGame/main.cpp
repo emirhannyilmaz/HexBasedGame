@@ -26,11 +26,16 @@
 #include "Renderer/SkyboxRenderer/SkyboxRenderer.h"
 #include "Entities/Buildings/Hex.h"
 #include "Entities/Buildings/Hotel.h"
+#include "Entities/Buildings/Apartment.h"
 
 BuildController* buildController = NULL;
 
 void BuildHotelButtonClick() {
 	buildController->BuildHotel();
+}
+
+void BuildApartmentButtonClick() {
+	buildController->BuildApartment();
 }
 
 int main() {
@@ -128,9 +133,11 @@ int main() {
 	guiTextures.push_back(&hexInfoTexture);
 	guiTextures.push_back(&buildMenuTexture);
 
-	GuiButton buildHotelButton("Resources/Textures/BuildHotelButton.png", GL_RGBA, GL_RGBA, GL_UNSIGNED_BYTE, glm::vec2(30.0f, Window::GetHeight() / 2.0f), 0.0f, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec2(50.0f, 50.0f), false, BuildHotelButtonClick);
+	GuiButton buildHotelButton("Resources/Textures/BuildHotelButton.png", GL_RGBA, GL_RGBA, GL_UNSIGNED_BYTE, glm::vec2(30.0f, Window::GetHeight() / 2.0f + 25.0f + 2.5f), 0.0f, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec2(50.0f, 50.0f), false, BuildHotelButtonClick);
+	GuiButton buildApartmentButton("Resources/Textures/BuildApartmentButton.png", GL_RGBA, GL_RGBA, GL_UNSIGNED_BYTE, glm::vec2(30.0f, Window::GetHeight() / 2.0f - 25.0f - 2.5f), 0.0f, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec2(50.0f, 50.0f), false, BuildApartmentButtonClick);
 	std::vector<GuiButton*> guiButtons;
 	guiButtons.push_back(&buildHotelButton);
+	guiButtons.push_back(&buildApartmentButton);
 
 	Text moneyText("Money: " + std::to_string(PlayerStats::GetMoney()), glm::vec2(Window::GetWidth() / 2.0f, 7.5f), glm::vec2(1.0f, 1.0f), glm::vec3(1.0f, 1.0f, 1.0f), true, true);
 	Text hexNameText("", glm::vec2(Window::GetWidth() / 2.0f, Window::GetHeight() - 22.0f), glm::vec2(1.0f, 1.0f), glm::vec3(1.0f, 1.0f, 1.0f), false, true);
@@ -139,8 +146,9 @@ int main() {
 	texts.push_back(&hexNameText);
 
 	std::vector<Property*> properties;
+	std::vector<SaleableProperty*> saleableProperties;
 
-	buildController = new BuildController(&entities, &lights, hexes, &hexNameText, &moneyText, &properties);
+	buildController = new BuildController(&entities, &lights, hexes, &hexNameText, &moneyText, &properties, &saleableProperties);
 
 	while (!window.ShouldClose()) {
 		window.CalculateDeltaTime();
@@ -151,6 +159,9 @@ int main() {
 		}
 		for (Property* prop : properties) {
 			prop->Update(moneyText);
+		}
+		for (SaleableProperty* saleableProp : saleableProperties) {
+			saleableProp->Update(moneyText);
 		}
 		ray.Update();
 		ray.CheckForCollisions(entities, &buildMenuTexture, guiButtons, &hexInfoTexture, &hexNameText);

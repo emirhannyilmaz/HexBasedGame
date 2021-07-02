@@ -147,6 +147,12 @@
     <ClCompile Include="Entities\Buildings\Concrete.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Entities\SaleableProperty.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Entities\Buildings\Apartment.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Entities\Entity.h">
@@ -276,6 +282,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Entities\Buildings\Concrete.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Entities\SaleableProperty.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Entities\Buildings\Apartment.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
