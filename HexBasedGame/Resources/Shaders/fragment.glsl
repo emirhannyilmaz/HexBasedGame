@@ -1,4 +1,4 @@
-#version 330 core
+#version 460 core
 #define MAX_LIGHTS 16
 
 out vec4 FragColor;

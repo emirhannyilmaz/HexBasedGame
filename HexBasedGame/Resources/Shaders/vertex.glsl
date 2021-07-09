@@ -1,4 +1,4 @@
-#version 330 core
+#version 460 core
 #define MAX_LIGHTS 16
 
 layout (location = 0) in vec3 position;
